@@ -3,25 +3,22 @@ package controller;
 import java.io.IOException;
 
 import dao.DAOFactory;
-import dao.PlayerDao;
+import dao.CosmeticDao;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class Players
- */
-@WebServlet("/players")
-public class Players extends HttpServlet {
+@WebServlet("/cosmetics")
+public class Cosmetics extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private PlayerDao playerDao;
+	private CosmeticDao cosmeticDao;
 	
 	public void init() throws ServletException
 	{
-		this.playerDao = ((DAOFactory) getServletContext().getAttribute("daofactory")).getPlayerDao();
+		this.cosmeticDao = ((DAOFactory) getServletContext().getAttribute("daofactory")).getCosmeticDao();
 	}
 
 	/**
@@ -29,8 +26,8 @@ public class Players extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println(playerDao.findById((long) 1));
-		this.getServletContext().getRequestDispatcher("/WEB-INF/formPlayer.jsp").forward( request, response );
+		System.out.println(cosmeticDao.findById((long) 1));
+		this.getServletContext().getRequestDispatcher("/WEB-INF/formCosmetic.jsp").forward( request, response );
 	}
 
 	/**
