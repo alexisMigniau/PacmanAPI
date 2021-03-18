@@ -74,4 +74,8 @@ public class DAOFactory {
     public PlayerDao getPlayerDao() {
         return new PlayerDaoImpl( this );
     }
+    
+    public CosmeticDao getCosmeticDao() {
+        return new CosmeticDaoImpl( this );
+    }
 }
