@@ -46,4 +46,13 @@ public class Player {
 	public void setDateInscription(Timestamp dateInscription) {
 		this.dateInscription = dateInscription;
 	}
+	
+	public String toString()
+	{
+		return "Player " + this.id + 
+				"\nLogin : " + this.login +
+				"\nPseudo : " + this.pseudo +
+				"\nPassword : " + this.password +
+				"\nNationality : " + this.nationality + "\n";
+	}
 }

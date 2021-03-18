@@ -1,0 +1,4 @@
+url = jdbc:mysql://DB_HOST:PORT/DB_NAME
+driver = com.mysql.jdbc.Driver
+nomutilisateur = USERNAME
+motdepasse = PASSWORD

@@ -14,9 +14,6 @@ public interface PlayerDao {
 	// Profil
 	Player findById(Long id) throws DAOException;
 	
-	// Classement , possibilité de filtrage par nationalité
-	List<Player> getClassement(String nationality) throws DAOException;
-	
 	// Modifier un joueur
 	boolean update(long id,Player player) throws DAOException;
 	
