@@ -1,4 +1,5 @@
 <%@tag description="Overall Page template" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@attribute name="header" fragment="true" %>
 <%@attribute name="footer" fragment="true" %>
 <html>
@@ -18,6 +19,9 @@
 			<div class="container justify-content-center">
 				<div class="row">
 					<div class="col">
+						<a class="btn btn-outline-warning" href="./exemple.jar" role="button">Télécharger</a>
+					</div>
+					<div class="col">
 						<a class="btn btn-outline-warning" href="#" role="button">Classement</a>
 					</div>
 					<div class="col">
@@ -35,6 +39,9 @@
 					</div>
 					<div class="col">
 						<a class="btn btn-outline-warning" href="#" role="button">Connexion</a>
+					</div>
+					<div class="col">
+						<a class="btn btn-outline-warning" href="#" role="button">Déconnexion</a>
 					</div>		 	
 				 </div>
 		    </div>
