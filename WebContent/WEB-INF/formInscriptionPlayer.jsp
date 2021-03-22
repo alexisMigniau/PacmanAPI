@@ -8,7 +8,7 @@
         			<div class="form-group col-md-6">
 		                <label for="login">Login</label>
 		                <input class="form-control" type="text" id="login" name="login" value="" size="20" maxlength="20"/>
-		                <small id="loginHelp" class="form-text text-muted">Il vous sera demandez à chaque connexion</small>
+		                <small id="loginHelp" class="form-text text-muted">Il vous sera demandez ï¿½ chaque connexion</small>
 	                </div>
 	                <div class="form-group col-md-6">
 	                	<label for="pseudo">Pseudo</label>
