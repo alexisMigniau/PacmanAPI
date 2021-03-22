@@ -13,8 +13,8 @@ import jakarta.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Players
  */
-@WebServlet("/players")
-public class Players extends HttpServlet {
+@WebServlet("/inscription")
+public class PlayerInscription extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private PlayerDao playerDao;
@@ -29,8 +29,7 @@ public class Players extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println(playerDao.findById((long) 1));
-		this.getServletContext().getRequestDispatcher("/WEB-INF/formPlayer.jsp").forward( request, response );
+		this.getServletContext().getRequestDispatcher("/WEB-INF/formInscriptionPlayer.jsp").forward( request, response );
 	}
 
 	/**
