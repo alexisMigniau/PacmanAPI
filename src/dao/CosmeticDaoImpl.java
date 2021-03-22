@@ -6,13 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import static dao.DAOUtil.*;
 
+import bean.Cosmetic;
 import bean.Player;
 
-public class PlayerDaoImpl implements PlayerDao {
+public class CosmeticDaoImpl implements CosmeticDao {
 	
 	private DAOFactory factory;	
 	
-	public PlayerDaoImpl(DAOFactory factory) {
+	public CosmeticDaoImpl(DAOFactory factory) {
 		super();
 		this.factory = factory;
 	}
@@ -20,15 +21,14 @@ public class PlayerDaoImpl implements PlayerDao {
 	private static final String SQL_INSERT = "INSERT INTO `player` (`id_player`, `pseudo`, `login`, `password`, `nationality`, `date_inscription`) VALUES (NULL, ?, ?, MD5(?), ?, CURRENT_TIMESTAMP)";
 	
 	@Override
-	public void ajouter(Player player) throws DAOException {
+	public void ajouter(Cosmetic cosmetic) throws DAOException {
 		Connection connexion = null;
 	    PreparedStatement preparedStatement = null;
 	    ResultSet valeursAutoGenerees = null;
 
 	    try {
-	        /* Récupération d'une connexion depuis la Factory */
 	        connexion = factory.getConnection();
-	        preparedStatement = initRequest( connexion, SQL_INSERT, true, player.getPseudo(), player.getLogin(), player.getPassword(), player.getNationality());
+	        preparedStatement = initRequest( connexion, SQL_INSERT, true, cosmetic.getName(), cosmetic.getPrice());
 	        int statut = preparedStatement.executeUpdate();
 	        /* Analyse du statut retourné par la requête d'insertion */
 	        if ( statut == 0 ) {
@@ -38,7 +38,7 @@ public class PlayerDaoImpl implements PlayerDao {
 	        valeursAutoGenerees = preparedStatement.getGeneratedKeys();
 	        if ( valeursAutoGenerees.next() ) {
 	            /* Puis initialisation de la propriété id du bean Utilisateur avec sa valeur */
-	            player.setId( valeursAutoGenerees.getLong( 1 ) );
+	            cosmetic.setId( valeursAutoGenerees.getLong( 1 ) );
 	        } else {
 	            throw new DAOException( "Échec de la création de l'utilisateur en base, aucun ID auto-généré retourné." );
 	        }
@@ -49,23 +49,23 @@ public class PlayerDaoImpl implements PlayerDao {
 	    }
 	}
 
-	private static final String SQL_SELECT_BY_LOGIN = "SELECT id_player, pseudo, login, password, nationality, date_inscription FROM player WHERE login = ?";
+	private static final String SQL_SELECT_BY_LOGIN = "SELECT id_cosmetic, name, price FROM cosmetic WHERE name = ?";
 	
 	@Override
-	public Player findByLogin(String login) throws DAOException {
+	public Cosmetic findByName(String name) throws DAOException {
 		Connection connexion = null;
 	    PreparedStatement preparedStatement = null;
 	    ResultSet resultSet = null;
-	    Player player = null;
+	    Cosmetic cosmetic = null;
 	    
 	    try {
 	        // Ouverture de la connexion
 	        connexion = factory.getConnection();
-	        preparedStatement = initRequest( connexion, SQL_SELECT_BY_LOGIN, false, login );
+	        preparedStatement = initRequest( connexion, SQL_SELECT_BY_LOGIN, false, name );
 	        resultSet = preparedStatement.executeQuery();
 	   
 	        if ( resultSet.next() ) {
-	            player = map( resultSet );
+	        	cosmetic = map( resultSet );
 	        }
 	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
@@ -73,17 +73,17 @@ public class PlayerDaoImpl implements PlayerDao {
 	        fermeturesSilencieuses( resultSet, preparedStatement, connexion );
 	    }
 	   
-		return player;
+		return cosmetic;
 	}
 
 	private static final String SQL_SELECT_BY_ID = "SELECT id_player, pseudo, login, password, nationality, date_inscription FROM player WHERE id_player = ?";
 	
 	@Override
-	public Player findById(Long id) throws DAOException {
+	public Cosmetic findById(Long id) throws DAOException {
 		Connection connexion = null;
 	    PreparedStatement preparedStatement = null;
 	    ResultSet resultSet = null;
-	    Player player = null;
+	    Cosmetic cosmetic = null;
 	    
 	    try {
 	        // Ouverture de la connexion
@@ -92,7 +92,7 @@ public class PlayerDaoImpl implements PlayerDao {
 	        resultSet = preparedStatement.executeQuery();
 	   
 	        if ( resultSet.next() ) {
-	            player = map( resultSet );
+	        	cosmetic = map( resultSet );
 	        }
 	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
@@ -100,11 +100,11 @@ public class PlayerDaoImpl implements PlayerDao {
 	        fermeturesSilencieuses( resultSet, preparedStatement, connexion );
 	    }
 	   
-		return player;
+		return cosmetic;
 	}
 
 	@Override
-	public boolean update(long id, Player player) throws DAOException {
+	public boolean update(long id, Cosmetic cosmetic) throws DAOException {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -116,14 +116,11 @@ public class PlayerDaoImpl implements PlayerDao {
 	}
 
 	// Transformation d'un résultat SQL en bean
-	public static Player map(ResultSet result) throws SQLException {
-		Player player = new Player();
-		player.setId(result.getLong("id_player"));
-		player.setPseudo(result.getString("pseudo"));
-		player.setPassword(result.getString("password"));
-		player.setLogin(result.getString("login"));
-		player.setNationality(result.getString("nationality"));
-		player.setDateInscription(result.getTimestamp( "date_inscription" ));
-		return player;
+	public static Cosmetic map(ResultSet result) throws SQLException {
+		Cosmetic cosmetic = new Cosmetic();
+		cosmetic.setId(result.getLong("id_cosmetic"));
+		cosmetic.setName(result.getString("name"));
+		cosmetic.setPrice(result.getString("price"));
+		return cosmetic;
 	}
 }
