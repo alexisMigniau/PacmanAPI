@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import static dao.DAOUtil.*;
 
 import bean.Cosmetic;
@@ -103,23 +106,23 @@ public class CosmeticDaoImpl implements CosmeticDao {
 		return cosmetic;
 	}
 
-	private static final String SQL_SELECT_ALL = "SELECT id_cosmetic, name, price FROM cosmetic WHERE name = ?";
+	private static final String SQL_SELECT_ALL = "SELECT id_cosmetic, name, price FROM cosmetic";
 	
 	@Override
-	public Cosmetic findAll() throws DAOException {
+	public List<Cosmetic> findAll() throws DAOException {
 		Connection connexion = null;
 	    PreparedStatement preparedStatement = null;
 	    ResultSet resultSet = null;
 	    Cosmetic cosmetic = null;
-	    
+	    List<Cosmetic> listCosmetic = new ArrayList<Cosmetic>() ;;
 	    try {
 	        // Ouverture de la connexion
 	        connexion = factory.getConnection();
 	        preparedStatement = initRequest(connexion, SQL_SELECT_ALL, false);
 	        resultSet = preparedStatement.executeQuery();
-	   
-	        if ( resultSet.next() ) {
+	        while ( resultSet.next() ) {
 	        	cosmetic = map( resultSet );
+		        listCosmetic.add(cosmetic);      	
 	        }
 	    } catch ( SQLException e ) {
 	        throw new DAOException( e );
@@ -127,7 +130,7 @@ public class CosmeticDaoImpl implements CosmeticDao {
 	        fermeturesSilencieuses( resultSet, preparedStatement, connexion );
 	    }
 	   
-		return cosmetic;
+		return listCosmetic;
 	}
 
 	@Override
