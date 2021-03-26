@@ -49,10 +49,10 @@ public class PlayerDaoImpl implements PlayerDao {
 	    }
 	}
 
-	private static final String SQL_SELECT_BY_LOGIN = "SELECT id_player, pseudo, login, password, nationality, date_inscription, solde FROM player WHERE login = ?";
+	private static final String SQL_SELECT_BY_LOGIN = "SELECT * FROM player WHERE player.login = ? AND player.password = MD5(?)";
 	
 	@Override
-	public Player findByLogin(String login) throws DAOException {
+	public Player findByLogin(String login, String password) throws DAOException {
 		Connection connexion = null;
 	    PreparedStatement preparedStatement = null;
 	    ResultSet resultSet = null;
@@ -61,7 +61,7 @@ public class PlayerDaoImpl implements PlayerDao {
 	    try {
 	        // Ouverture de la connexion
 	        connexion = factory.getConnection();
-	        preparedStatement = initRequest( connexion, SQL_SELECT_BY_LOGIN, false, login );
+	        preparedStatement = initRequest( connexion, SQL_SELECT_BY_LOGIN, false, login, password);
 	        resultSet = preparedStatement.executeQuery();
 	   
 	        if ( resultSet.next() ) {

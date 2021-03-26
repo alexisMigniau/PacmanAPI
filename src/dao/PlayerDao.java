@@ -7,7 +7,7 @@ public interface PlayerDao {
 	void ajouter(Player player) throws DAOException;
 	
 	// Connexion
-	Player findByLogin(String login) throws DAOException;
+	Player findByLogin(String login, String password) throws DAOException;
 	
 	// Profil
 	Player findById(Long id) throws DAOException;

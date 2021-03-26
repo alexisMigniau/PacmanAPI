@@ -9,14 +9,14 @@
 		
 		<!-- Bootstrap CSS -->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-		
+		<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
 	</head>
 	<body>
 		<nav class="navbar navbar-dark bg-dark">
 			<div class="container justify-content-center">
 				<img src="https://upload.wikimedia.org/wikipedia/fr/thumb/a/a2/Pac-Man_Logo.svg/1280px-Pac-Man_Logo.svg.png" height="250px"/>
 		    </div>
-			<div class="container justify-content-center">
+			<div class="container justify-content-around">
 				<div class="row">
 					<div class="col">
 						<a class="btn btn-outline-warning" href="./exemple.jar" role="button">Télécharger</a>
@@ -30,20 +30,31 @@
 					<div class="col">
 						<a class="btn btn-outline-warning" href="cosmetics" role="button">Cosmétiques</a>
 					</div>
-					<div class="col">
-						<a class="btn btn-outline-warning" href="#" role="button">Profile</a>
-					</div>
-					<div class="col">
-						<a class="btn btn-outline-warning" href="inscription" role="button">Inscription</a>
-					</div>
-					<!-- Si l'utilisateur est connecté alors on affiche pas ces bouttons -->
-
-					<div class="col">
-						<a class="btn btn-outline-warning" href="#" role="button">Connexion</a>
-					</div>
-					<div class="col">
-						<a class="btn btn-outline-warning" href="#" role="button">Déconnexion</a>
-					</div>		 	
+					
+					<!-- Si l'utilisateur n'est pas connecté -->
+					<c:if test="${empty sessionScope.player }">
+						<div class="col">
+							<a class="btn btn-outline-warning" href="inscription" role="button">Inscription</a>
+						</div>
+						<div class="col">
+							<a class="btn btn-outline-warning" href="connexion" role="button">Connexion</a>
+						</div>
+					</c:if>
+					<!-- Si l'utilisateur est connecté -->
+					<c:if test="${not empty sessionScope.player }">
+						<div class="col">
+							<a class="btn btn-outline-warning" href="#" role="button">Profil</a>
+						</div>
+						<div class="col">
+							<a class="btn btn-outline-warning" href="#" role="button">Déconnexion</a>
+						</div>
+						<div class="col">
+							<p class="text-warning"><strong>Login</strong> ${sessionScope.player.login }</a>
+						</div>
+						<div class="col">
+							<p class="text-warning">${sessionScope.player.solde } <i class="fab fa-bitcoin"></i></a>
+						</div>
+					</c:if>
 				 </div>
 		    </div>
 		</nav>

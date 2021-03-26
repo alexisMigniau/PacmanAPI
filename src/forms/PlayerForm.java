@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import bean.Player;
 
-public class InscriptionForm {
+public class PlayerForm {
 	private static final String CHAMP_LOGIN 	= "login";
 	private static final String CHAMP_PSEUDO 	= "pseudo";
     private static final String CHAMP_PASS 		= "motdepasse";
@@ -70,6 +70,19 @@ public class InscriptionForm {
         }
 
         return player;
+    }
+    
+    public Player connexionPlayer(HttpServletRequest request)
+    {
+    	 String login = getValeurChamp( request, CHAMP_LOGIN );
+    	 String motDePasse = getValeurChamp( request, CHAMP_PASS );
+    	 
+    	 Player player = new Player();
+    	 
+    	 player.setPassword(motDePasse);
+         player.setLogin(login);
+         
+         return player;
     }
     
     private void validationMotsDePasse( String motDePasse, String confirmation ) throws Exception {

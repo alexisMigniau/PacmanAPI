@@ -54,12 +54,4 @@ public class Player {
 	public void setSolde(Integer solde) {
 		this.solde = solde;
 	}
-	public String toString()
-	{
-		return "Player " + this.id + 
-				"\nLogin : " + this.login +
-				"\nPseudo : " + this.pseudo +
-				"\nPassword : " + this.password +
-				"\nNationality : " + this.nationality + "\n";
-	}
 }
