@@ -76,7 +76,7 @@ public class CosmeticDaoImpl implements CosmeticDao {
 		return cosmetic;
 	}
 
-	private static final String SQL_SELECT_BY_ID = "SELECT id_player, pseudo, login, password, nationality, date_inscription FROM player WHERE id_player = ?";
+	private static final String SQL_SELECT_BY_ID = "SELECT d_cosmetic, name, price FROM cosmetic WHERE id_cosmetic = ?";
 	
 	@Override
 	public Cosmetic findById(Long id) throws DAOException {
@@ -89,6 +89,33 @@ public class CosmeticDaoImpl implements CosmeticDao {
 	        // Ouverture de la connexion
 	        connexion = factory.getConnection();
 	        preparedStatement = initRequest( connexion, SQL_SELECT_BY_ID, false, id );
+	        resultSet = preparedStatement.executeQuery();
+	   
+	        if ( resultSet.next() ) {
+	        	cosmetic = map( resultSet );
+	        }
+	    } catch ( SQLException e ) {
+	        throw new DAOException( e );
+	    } finally {
+	        fermeturesSilencieuses( resultSet, preparedStatement, connexion );
+	    }
+	   
+		return cosmetic;
+	}
+
+	private static final String SQL_SELECT_ALL = "SELECT id_cosmetic, name, price FROM cosmetic WHERE name = ?";
+	
+	@Override
+	public Cosmetic findAll() throws DAOException {
+		Connection connexion = null;
+	    PreparedStatement preparedStatement = null;
+	    ResultSet resultSet = null;
+	    Cosmetic cosmetic = null;
+	    
+	    try {
+	        // Ouverture de la connexion
+	        connexion = factory.getConnection();
+	        preparedStatement = initRequest(connexion, SQL_SELECT_ALL, false);
 	        resultSet = preparedStatement.executeQuery();
 	   
 	        if ( resultSet.next() ) {

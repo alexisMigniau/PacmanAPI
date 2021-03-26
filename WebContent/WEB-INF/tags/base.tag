@@ -8,7 +8,7 @@
 		<title>Pacman</title>
 		
 		<!-- Bootstrap CSS -->
-    	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 		
 	</head>
 	<body>
@@ -33,10 +33,11 @@
 					<div class="col">
 						<a class="btn btn-outline-warning" href="#" role="button">Profile</a>
 					</div>
-					<!-- Si l'utilisateur est connectée alors on affiche pas ces bouttons -->
 					<div class="col">
 						<a class="btn btn-outline-warning" href="#" role="button">Inscription</a>
 					</div>
+					<!-- Si l'utilisateur est connecté alors on affiche pas ces bouttons -->
+
 					<div class="col">
 						<a class="btn btn-outline-warning" href="#" role="button">Connexion</a>
 					</div>

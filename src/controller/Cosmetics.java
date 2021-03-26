@@ -26,8 +26,9 @@ public class Cosmetics extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println(cosmeticDao.findById((long) 1));
-		this.getServletContext().getRequestDispatcher("/WEB-INF/formCosmetic.jsp").forward( request, response );
+		//System.out.println(cosmeticDao.findAll());
+		cosmeticDao.findAll();
+		//this.getServletContext().getRequestDispatcher("/WEB-INF/formCosmetic.jsp").forward( request, response );
 	}
 
 	/**

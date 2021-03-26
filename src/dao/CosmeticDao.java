@@ -9,6 +9,9 @@ public interface CosmeticDao {
 		// Création d'une cosmetique
 		void ajouter(Cosmetic cosmetic) throws DAOException;
 		
+		// Fetcher tous les cosmétiques
+		Cosmetic findAll() throws DAOException;
+
 		// Trouver cosmetique par id
 		Cosmetic findById(Long id) throws DAOException;
 		
