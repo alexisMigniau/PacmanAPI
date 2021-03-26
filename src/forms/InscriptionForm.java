@@ -33,7 +33,7 @@ public class InscriptionForm {
         String nat = getValeurChamp( request, CHAMP_NAT );
 
         Player player = new Player();
-
+        
         try {
             validationMotsDePasse( motDePasse, confirmation );
         } catch ( Exception e ) {
@@ -64,7 +64,7 @@ public class InscriptionForm {
         player.setNationality(nat);
         
         if ( erreurs.isEmpty() ) {
-            resultat = "Succès de l'inscription.";
+            resultat = "Succès de l'inscription. Vous pouvez vous connecter via la page de connexion";
         } else {
             resultat = "Échec de l'inscription.";
         }
@@ -97,7 +97,7 @@ public class InscriptionForm {
     }
     
     private void validationNat( String nat ) throws Exception {
-        if ( nat != null && nat.length() == 2 ) {
+        if ( nat != null && nat.length() != 2 ) {
             throw new Exception( "Le champ nationalité doit faire une taille de 2 caractères." );
         }
     }
@@ -116,7 +116,7 @@ public class InscriptionForm {
     private static String getValeurChamp( HttpServletRequest request, String nomChamp ) {
         String valeur = request.getParameter( nomChamp );
         if ( valeur == null || valeur.trim().length() == 0 ) {
-            return null;
+            return "";
         } else {
             return valeur.trim();
         }

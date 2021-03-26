@@ -1,4 +1,5 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <t:base>
     <jsp:body>
         <form method="post">
@@ -7,24 +8,39 @@
         		<div class="row">
         			<div class="form-group col-md-6">
 		                <label for="login">Login</label>
-		                <input class="form-control" type="text" id="login" name="login" value="" size="20" maxlength="20"/>
+		                <input class="form-control ${not empty form.erreurs.login ? 'is-invalid' : '' }" type="text" id="login" name="login" value="${utilisateur.login}" size="20" maxlength="20"/>
 		                <small id="loginHelp" class="form-text text-muted">Il vous sera demandez � chaque connexion</small>
+		                <c:if test="${not empty form.erreurs.login}">
+		                	<div class="invalid-feedback">
+        						${form.erreurs.login}
+      						</div>
+		                </c:if>
 	                </div>
 	                <div class="form-group col-md-6">
 	                	<label for="pseudo">Pseudo</label>
-                		<input class="form-control" type="text" id="pseudo" name="pseudo" value="" size="20" maxlength="20" />
+                		<input class="form-control ${not empty form.erreurs.login ? 'is-invalid' : '' }" type="text" id="pseudo" name="pseudo" value="${utilisateur.pseudo}" size="20" maxlength="20" />
                 		<small id="pseudoHelp" class="form-text text-muted">Il sera afficher pour tous les joueurs</small>
+                		<c:if test="${not empty form.erreurs.pseudo}">
+		                	<div class="invalid-feedback">
+        						${form.erreurs.pseudo}
+      						</div>
+		                </c:if>
 	                </div>
                 </div>
 				<br />
 				<div class="row">
 					<div class="form-group col-md-6">
 		                <label for="motdepasse">Mot de passe</label>
-		                <input class="form-control" type="password" id="motdepasse" name="motdepasse" value="" size="20" maxlength="20" />
+		                <input class="form-control ${not empty form.erreurs.motdepasse ? 'is-invalid' : '' }" type="password" id="motdepasse" name="motdepasse" value="" size="20" maxlength="20" />
+		                <c:if test="${not empty form.erreurs.motdepasse}">
+		                	<div class="invalid-feedback">
+        						${form.erreurs.motdepasse}
+      						</div>
+		                </c:if>
 		            </div>
 		            <div class="form-group col-md-6">
 		            	<label for="confirmation">Confirmation du mot de passe</label>
-                		<input class="form-control" type="password" id="confirmation" name="confirmation" value="" size="20" maxlength="20" />
+                		<input class="form-control ${not empty form.erreurs.motdepasse ? 'is-invalid' : '' }" type="password" id="confirmation" name="confirmation" value="" size="20" maxlength="20" />
 		            </div>
                 </div>
                 <br />
@@ -285,9 +301,12 @@
                		<button type="submit" class="btn btn-warning btn-block">Inscription</button>
                 </div>
                 <br />
-                <%-- <c:if test="false">
-               		<div class="row alert alert-success" role="alert">${form.resultat}</div>
-               	</c:if> --%>
+           
+                <c:if test="${not empty form.resultat}">
+               		<div class="row alert alert-${empty form.erreurs ? 'success' : 'danger'}" role="alert">
+               			${form.resultat} 
+               		</div>
+               	</c:if>
         	</div>
         </form>
         

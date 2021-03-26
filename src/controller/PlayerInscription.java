@@ -45,7 +45,7 @@ public class PlayerInscription extends HttpServlet {
 		// Récupération du bean
 		Player player = form.inscrirePlayer(request);
 		
-		//playerDao.ajouter(player);
+		playerDao.ajouter(player);
 		
 		// Stockage du formulaire pour récupérer le résultat et les erreurs
 		request.setAttribute("form", form);
