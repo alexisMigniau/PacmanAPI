@@ -49,7 +49,7 @@ public class PlayerDaoImpl implements PlayerDao {
 	    }
 	}
 
-	private static final String SQL_SELECT_BY_LOGIN = "SELECT id_player, pseudo, login, password, nationality, date_inscription FROM player WHERE login = ?";
+	private static final String SQL_SELECT_BY_LOGIN = "SELECT id_player, pseudo, login, password, nationality, date_inscription, solde FROM player WHERE login = ?";
 	
 	@Override
 	public Player findByLogin(String login) throws DAOException {
@@ -76,7 +76,7 @@ public class PlayerDaoImpl implements PlayerDao {
 		return player;
 	}
 
-	private static final String SQL_SELECT_BY_ID = "SELECT id_player, pseudo, login, password, nationality, date_inscription FROM player WHERE id_player = ?";
+	private static final String SQL_SELECT_BY_ID = "SELECT id_player, pseudo, login, password, nationality, date_inscription, solde FROM player WHERE id_player = ?";
 	
 	@Override
 	public Player findById(Long id) throws DAOException {
@@ -124,6 +124,7 @@ public class PlayerDaoImpl implements PlayerDao {
 		player.setLogin(result.getString("login"));
 		player.setNationality(result.getString("nationality"));
 		player.setDateInscription(result.getTimestamp( "date_inscription" ));
+		player.setSolde(result.getInt("solde"));
 		return player;
 	}
 }

@@ -9,6 +9,7 @@ public class Player {
 	private String password;
 	private String nationality;
 	private Timestamp dateInscription;
+	private Integer solde;
 	
 	public String getPseudo() {
 		return pseudo;
@@ -47,6 +48,12 @@ public class Player {
 		this.dateInscription = dateInscription;
 	}
 	
+	public Integer getSolde() {
+		return solde;
+	}
+	public void setSolde(Integer solde) {
+		this.solde = solde;
+	}
 	public String toString()
 	{
 		return "Player " + this.id + 

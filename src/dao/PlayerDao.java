@@ -1,7 +1,5 @@
 package dao;
 
-import java.util.List;
-
 import bean.Player;
 
 public interface PlayerDao {
