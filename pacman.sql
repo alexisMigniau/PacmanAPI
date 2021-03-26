@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : ven. 26 mars 2021 à 15:32
+-- Généré le : ven. 26 mars 2021 à 15:38
 -- Version du serveur :  10.3.27-MariaDB-0+deb10u1
 -- Version de PHP : 7.3.27-1~deb10u1
 
@@ -47,7 +47,8 @@ CREATE TABLE `player` (
   `login` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `nationality` varchar(2) NOT NULL DEFAULT 'FR',
-  `date_inscription` timestamp NOT NULL DEFAULT current_timestamp()
+  `date_inscription` timestamp NOT NULL DEFAULT current_timestamp(),
+  `solde` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -101,7 +102,7 @@ ALTER TABLE `cosmetic`
 -- AUTO_INCREMENT pour la table `player`
 --
 ALTER TABLE `player`
-  MODIFY `id_player` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_player` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT pour la table `player_cosmetic`
