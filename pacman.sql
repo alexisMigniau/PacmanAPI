@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : ven. 26 mars 2021 à 16:42
+-- Généré le : ven. 26 mars 2021 à 18:32
 -- Version du serveur :  10.3.27-MariaDB-0+deb10u1
 -- Version de PHP : 7.3.27-1~deb10u1
 
@@ -34,6 +34,14 @@ CREATE TABLE `cosmetic` (
   `name` varchar(20) NOT NULL,
   `price` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `cosmetic`
+--
+
+INSERT INTO `cosmetic` (`id_cosmetic`, `name`, `price`) VALUES
+(1, 'fortnite pacman', 50),
+(2, 'PacmanBleu', 500);
 
 -- --------------------------------------------------------
 
@@ -104,7 +112,7 @@ ALTER TABLE `player_cosmetic`
 -- AUTO_INCREMENT pour la table `cosmetic`
 --
 ALTER TABLE `cosmetic`
-  MODIFY `id_cosmetic` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_cosmetic` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT pour la table `player`
