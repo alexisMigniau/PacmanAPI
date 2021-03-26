@@ -28,13 +28,13 @@
 						<a class="btn btn-outline-warning" href="#" role="button">Parties</a>
 					</div>
 					<div class="col">
-						<a class="btn btn-outline-warning" href="#" role="button">Cosmétiques</a>
+						<a class="btn btn-outline-warning" href="cosmetics" role="button">Cosmétiques</a>
 					</div>
 					<div class="col">
 						<a class="btn btn-outline-warning" href="#" role="button">Profile</a>
 					</div>
 					<div class="col">
-						<a class="btn btn-outline-warning" href="#" role="button">Inscription</a>
+						<a class="btn btn-outline-warning" href="inscription" role="button">Inscription</a>
 					</div>
 					<!-- Si l'utilisateur est connecté alors on affiche pas ces bouttons -->
 
