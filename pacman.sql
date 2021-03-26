@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.4deb2~bpo10+1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 18 mars 2021 à 14:23
--- Version du serveur :  5.7.31
--- Version de PHP : 7.3.21
+-- Hôte : localhost:3306
+-- Généré le : ven. 26 mars 2021 à 15:32
+-- Version du serveur :  10.3.27-MariaDB-0+deb10u1
+-- Version de PHP : 7.3.27-1~deb10u1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,8 +20,20 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `pacman`
 --
-CREATE DATABASE IF NOT EXISTS `pacman` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+CREATE DATABASE IF NOT EXISTS `pacman` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `pacman`;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `cosmetic`
+--
+
+CREATE TABLE `cosmetic` (
+  `id_cosmetic` int(11) NOT NULL,
+  `name` int(20) NOT NULL,
+  `price` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -29,26 +41,83 @@ USE `pacman`;
 -- Structure de la table `player`
 --
 
-DROP TABLE IF EXISTS `player`;
-CREATE TABLE IF NOT EXISTS `player` (
-  `id_player` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `player` (
+  `id_player` int(11) NOT NULL,
   `pseudo` varchar(50) NOT NULL,
   `login` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `nationality` varchar(2) NOT NULL DEFAULT 'FR',
-  `date_inscription` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id_player`),
-  UNIQUE KEY `pseudo` (`pseudo`),
-  UNIQUE KEY `login` (`login`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  `date_inscription` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
 
 --
--- Déchargement des données de la table `player`
+-- Structure de la table `player_cosmetic`
 --
 
-INSERT INTO `player` (`id_player`, `pseudo`, `login`, `password`, `nationality`, `date_inscription`) VALUES
-(1, 'alexis', 'alexis', 'password', 'FR', '2021-03-18 13:16:32'),
-(2, 'test', 'test', '5f4dcc3b5aa765d61d8327deb882cf99', 'FR', '2021-03-18 13:36:11');
+CREATE TABLE `player_cosmetic` (
+  `id_possession_cosmetic` int(11) NOT NULL,
+  `id_cosmetic` int(11) NOT NULL,
+  `id_player` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `cosmetic`
+--
+ALTER TABLE `cosmetic`
+  ADD PRIMARY KEY (`id_cosmetic`);
+
+--
+-- Index pour la table `player`
+--
+ALTER TABLE `player`
+  ADD PRIMARY KEY (`id_player`),
+  ADD UNIQUE KEY `pseudo` (`pseudo`),
+  ADD UNIQUE KEY `login` (`login`);
+
+--
+-- Index pour la table `player_cosmetic`
+--
+ALTER TABLE `player_cosmetic`
+  ADD PRIMARY KEY (`id_possession_cosmetic`),
+  ADD KEY `FK_cosmetic` (`id_cosmetic`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `cosmetic`
+--
+ALTER TABLE `cosmetic`
+  MODIFY `id_cosmetic` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `player`
+--
+ALTER TABLE `player`
+  MODIFY `id_player` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT pour la table `player_cosmetic`
+--
+ALTER TABLE `player_cosmetic`
+  MODIFY `id_possession_cosmetic` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `player_cosmetic`
+--
+ALTER TABLE `player_cosmetic`
+  ADD CONSTRAINT `FK_cosmetic` FOREIGN KEY (`id_cosmetic`) REFERENCES `cosmetic` (`id_cosmetic`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
