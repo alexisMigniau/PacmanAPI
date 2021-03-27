@@ -46,7 +46,7 @@
 							<a class="btn btn-outline-warning" href="#" role="button">Profil</a>
 						</div>
 						<div class="col">
-							<a class="btn btn-outline-warning" href="#" role="button">Déconnexion</a>
+							<a class="btn btn-outline-warning" href="logout" role="button">Déconnexion</a>
 						</div>
 						<div class="col">
 							<p class="text-warning"><strong>Login</strong> ${sessionScope.player.login }</a>
