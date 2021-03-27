@@ -6,19 +6,13 @@ import bean.Cosmetic;
 
 public interface CosmeticDao {
 
-		// Création d'une cosmetique
-		void ajouter(Cosmetic cosmetic) throws DAOException;
-		
 		// Fetcher tous les cosmétiques
 		List<Cosmetic> findAll() throws DAOException;
 
-		// Trouver cosmetique par id
-		Cosmetic findById(Long id) throws DAOException;
-		
-		// Trouver cosmetique par nom
-		Cosmetic findByName(String name) throws DAOException;
+		// Ajoute un cosmetic dans la table intermediaire cosmetic/player et debite le solde de player
+		Cosmetic buyCosmetic(String name) throws DAOException;
 
-		// Modifier un joueurformPlayer
+		// Modifier un cosmetic
 		boolean update(long id, Cosmetic cosmetic) throws DAOException;
 		
 		// Supprimer un joueur

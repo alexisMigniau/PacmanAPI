@@ -5,25 +5,39 @@
         <form method="post">
         	<div class="container">
         		<br />
-        		<div class="row">
-					<c:forEach items="${ listCosmeticsDisplay }" var="cosmetic" varStatus="status">
-						<h2>N°
-						<c:out value="${ status.count }" /> :
-						${cosmetic.name } à <span>${cosmetic.price} coins</span></h2>
-					</c:forEach>
-                </div>
-				<br />
 
-                <div class="row">
-               		<button type="submit" class="btn btn-warning btn-block">Inscription</button>
-                </div>
+				<br />
                 <br />
-           
-                <c:if test="${not empty form.resultat}">
-               		<div class="row alert alert-${empty form.erreurs ? 'success' : 'danger'}" role="alert">
-               			${form.resultat} 
-               		</div>
-               	</c:if>
+
+				<c:if test="${ empty session }">
+					<div class="row">
+						<div class="row">
+							<c:forEach items="${ listCosmeticsDisplay }" var="cosmetic" varStatus="status">
+								<h2>
+									${cosmetic.name } <span>${cosmetic.price} coins</span>
+								</h2>
+							</c:forEach>
+						</div>
+
+						<a href="connexion" class="btn btn-warning btn-block">Pour profiter de ces cosmetiques, connectez-vous ici</a>
+					</div>
+				</c:if>
+				<!-- Si l'utilisateur est connectÃ© -->
+				<c:if test="${ not empty session }">
+					<div class="row">
+						<div class="row">
+							<form method="post">
+								<c:forEach items="${ listCosmeticsDisplay }" var="cosmetic" varStatus="status">
+									<h2>
+										<label for="${cosmetic.id }">${cosmetic.name}</label>
+										<span>${cosmetic.price} coins</span>
+									</h2>
+									 <button class="btn btn-warning btn-block" >Acheter</button>
+								</c:forEach>
+							</form>
+						</div>
+				 	</div>
+				</c:if>
         	</div>
         </form>
         
