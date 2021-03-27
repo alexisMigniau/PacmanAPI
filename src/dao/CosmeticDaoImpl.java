@@ -13,68 +13,101 @@ import bean.Cosmetic;
 import bean.Player;
 
 public class CosmeticDaoImpl implements CosmeticDao {
-	
-	private DAOFactory factory;	
-	
+
+	private DAOFactory factory;
+
 	public CosmeticDaoImpl(DAOFactory factory) {
 		super();
 		this.factory = factory;
 	}
 
-	private static final String SQL_SELECT_BY_LOGIN = "SELECT id_cosmetic, name, price FROM cosmetic WHERE name = ?";
-	
-	//Verifier que le joueur n a pas deja la cosmetic en question
-	//AJouter une ligne dans player_cometic
-	//Debiter le solde du joueur
+	private static final String SQL_INSERT_PLAYER_COSMETIC = "INSERT INTO `player_cosmetic`  (`id_possession_cosmetic`,`id_cosmetic`, `id_player`) VALUES (NULL, ?, ?)";
+
+	// Verifier que le joueur n a pas deja la cosmetic en question
+	// AJouter une ligne dans player_cometic
+	// Debiter le solde du joueur
 	@Override
-	public Cosmetic buyCosmetic(String name) throws DAOException {
+	public Cosmetic buyCosmetic(List<Object> requestResult) throws DAOException {
 		Connection connexion = null;
-	    PreparedStatement preparedStatement = null;
-	    ResultSet resultSet = null;
-	    Cosmetic cosmetic = null;
-	    
-	    try {
-	        // Ouverture de la connexion
-	        connexion = factory.getConnection();
-	        preparedStatement = initRequest( connexion, SQL_SELECT_BY_LOGIN, false, name );
-	        resultSet = preparedStatement.executeQuery();
-	   
-	        if ( resultSet.next() ) {
-	        	cosmetic = map( resultSet );
-	        }
-	    } catch ( SQLException e ) {
-	        throw new DAOException( e );
-	    } finally {
-	        fermeturesSilencieuses( resultSet, preparedStatement, connexion );
-	    }
-	   
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Cosmetic cosmetic = null;
+		int id_cosmetic = Integer.parseInt((String) requestResult.get(0));
+		int id_player = Integer.parseInt((String) requestResult.get(1));
+		int price = Integer.parseInt((String) requestResult.get(2));
+		int solde = Integer.parseInt((String) requestResult.get(3));
+
+		System.out.println(
+				"id_cosmetic " + id_cosmetic + " id_player " + id_player + " price " + price + " solde " + solde);
+
+		try {
+			// Ouverture de la connexion
+			connexion = factory.getConnection();
+			preparedStatement = initRequest(connexion, SQL_INSERT_PLAYER_COSMETIC, true, id_cosmetic, id_player);
+			int statut = preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+
+		return cosmetic;
+	}
+
+	private static final String SQL_UPDATE_SOLDE_PLAYER = "UPDATE `player` SET solde = ? WHERE player.id_player = ?";
+
+	@Override
+	public Cosmetic debiteSolde(List<Object> requestResult) throws DAOException {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Cosmetic cosmetic = null;
+		int id_cosmetic = Integer.parseInt((String) requestResult.get(0));
+		int id_player = Integer.parseInt((String) requestResult.get(1));
+		int price = Integer.parseInt((String) requestResult.get(2));
+		int solde = Integer.parseInt((String) requestResult.get(3));
+		int newSolde = solde - price;
+		System.out.println("newSolde " + newSolde);
+		try {
+			// Ouverture de la connexion
+			connexion = factory.getConnection();
+			preparedStatement = initRequest(connexion, SQL_UPDATE_SOLDE_PLAYER, true, newSolde, id_player);
+			int statut = preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
 		return cosmetic;
 	}
 
 	private static final String SQL_SELECT_ALL = "SELECT id_cosmetic, name, price FROM cosmetic";
-	
+
 	@Override
 	public List<Cosmetic> findAll() throws DAOException {
 		Connection connexion = null;
-	    PreparedStatement preparedStatement = null;
-	    ResultSet resultSet = null;
-	    Cosmetic cosmetic = null;
-	    List<Cosmetic> listCosmetic = new ArrayList<Cosmetic>() ;;
-	    try {
-	        // Ouverture de la connexion
-	        connexion = factory.getConnection();
-	        preparedStatement = initRequest(connexion, SQL_SELECT_ALL, false);
-	        resultSet = preparedStatement.executeQuery();
-	        while ( resultSet.next() ) {
-	        	cosmetic = map( resultSet );
-		        listCosmetic.add(cosmetic);      	
-	        }
-	    } catch ( SQLException e ) {
-	        throw new DAOException( e );
-	    } finally {
-	        fermeturesSilencieuses( resultSet, preparedStatement, connexion );
-	    }
-	   
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Cosmetic cosmetic = null;
+		List<Cosmetic> listCosmetic = new ArrayList<Cosmetic>();
+		;
+		try {
+			// Ouverture de la connexion
+			connexion = factory.getConnection();
+			preparedStatement = initRequest(connexion, SQL_SELECT_ALL, false);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				cosmetic = map(resultSet);
+				listCosmetic.add(cosmetic);
+			}
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+
 		return listCosmetic;
 	}
 

@@ -9,9 +9,11 @@ public interface CosmeticDao {
 		// Fetcher tous les cosmétiques
 		List<Cosmetic> findAll() throws DAOException;
 
-		// Ajoute un cosmetic dans la table intermediaire cosmetic/player et debite le solde de player
-		Cosmetic buyCosmetic(String name) throws DAOException;
+		// Ajoute un cosmetic dans la table intermediaire cosmetic/player
+		Cosmetic buyCosmetic(List<Object> requestResult) throws DAOException;
 
+		// Debite le solde de player
+		Cosmetic debiteSolde(List<Object> requestResult) throws DAOException;
 		// Modifier un cosmetic
 		boolean update(long id, Cosmetic cosmetic) throws DAOException;
 		

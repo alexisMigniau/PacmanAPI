@@ -31,12 +31,21 @@
 									<h2>
 										<label for="${cosmetic.id }">${cosmetic.name}</label>
 										<span>${cosmetic.price} coins</span>
+										<input type="hidden" name="id_cosmetic" value="${cosmetic.id}" />
+										<input type="hidden" name="id_player" value="${player.id}" />
+										<input type="hidden" name="price" value="${cosmetic.price}" />
+										<input type="hidden" name="solde" value="${player.solde}" />
 									</h2>
-									 <button class="btn btn-warning btn-block" >Acheter</button>
+									 <button type="submit" class="btn btn-warning btn-block">Acheter</button>
 								</c:forEach>
 							</form>
 						</div>
 				 	</div>
+				</c:if>
+				<c:if test="${not empty form.resultat}">
+					<div class="row alert alert-${empty form.erreurs ? 'success' : 'danger'}" role="alert">
+						${form.resultat} 
+					</div>
 				</c:if>
         	</div>
         </form>

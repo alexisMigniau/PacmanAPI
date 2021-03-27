@@ -1,8 +1,10 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import dao.DAOFactory;
+import forms.CosmeticForm;
 import dao.CosmeticDao;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,8 +48,14 @@ public class Cosmetics extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
+		// Création du formulaire
+		CosmeticForm form = new CosmeticForm();
+
+		List<Object> requestResult = form.buyCosmeticValidateForm(request);
+		cosmeticDao.buyCosmetic(requestResult);
+		cosmeticDao.debiteSolde(requestResult);
+		response.sendRedirect("cosmetics");
 	}
 
 	/**
