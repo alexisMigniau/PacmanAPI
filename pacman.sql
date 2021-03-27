@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : ven. 26 mars 2021 à 18:32
+-- Généré le : sam. 27 mars 2021 à 21:18
 -- Version du serveur :  10.3.27-MariaDB-0+deb10u1
 -- Version de PHP : 7.3.27-1~deb10u1
 
@@ -32,7 +32,7 @@ USE `pacman`;
 CREATE TABLE `cosmetic` (
   `id_cosmetic` int(11) NOT NULL,
   `name` varchar(20) NOT NULL,
-  `price` float NOT NULL
+  `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -56,16 +56,9 @@ CREATE TABLE `player` (
   `password` varchar(50) NOT NULL,
   `nationality` varchar(2) NOT NULL DEFAULT 'FR',
   `date_inscription` timestamp NOT NULL DEFAULT current_timestamp(),
-  `solde` int(4) NOT NULL DEFAULT 0
+  `solde` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Déchargement des données de la table `player`
---
-
-INSERT INTO `player` (`id_player`, `pseudo`, `login`, `password`, `nationality`, `date_inscription`, `solde`) VALUES
-(3, 'testpseudo', 'testlogin', '250cf8b51c773f3f8dc8b4be867a9a02', 'FR', '2021-03-26 14:34:08', 0),
-(4, 'test2', 'test', '202cb962ac59075b964b07152d234b70', 'FR', '2021-03-26 14:52:41', 0);
 
 -- --------------------------------------------------------
 
@@ -124,7 +117,7 @@ ALTER TABLE `player`
 -- AUTO_INCREMENT pour la table `player_cosmetic`
 --
 ALTER TABLE `player_cosmetic`
-  MODIFY `id_possession_cosmetic` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_possession_cosmetic` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Contraintes pour les tables déchargées
