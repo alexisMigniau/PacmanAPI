@@ -56,8 +56,17 @@ CREATE TABLE `player` (
   `password` varchar(50) NOT NULL,
   `nationality` varchar(2) NOT NULL DEFAULT 'FR',
   `date_inscription` timestamp NOT NULL DEFAULT current_timestamp(),
-  `solde` int(11) NOT NULL DEFAULT 0
+  `solde` int(11) NOT NULL DEFAULT 0,
+  `ranking_points` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+INSERT INTO `player` (`id_player`, `pseudo`, `login`, `password`, `nationality`, `solde`, `ranking_points`) VALUES
+(1, 'Admin', 'admin', 'admin123', 'EN', 9999, 1563),
+(2, 'Gotaga', 'gotaga', 'gotaga123', 'FR', 846, 8456),
+(3, 'Wartek', 'wartek', 'wartek123', 'CH', 789, 5794),
+(4, 'TheFantasio974', 'fanta', 'fanta123', 'FR', 985, 4552),
+(5, 'Squeezie', 'squeezie', 'squeezie123', 'FR', 1256, 5821);
 
 
 -- --------------------------------------------------------
