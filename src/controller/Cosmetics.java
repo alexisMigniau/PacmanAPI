@@ -59,10 +59,11 @@ public class Cosmetics extends HttpServlet {
 
 		// Création du formulaire
 		CosmeticForm form = new CosmeticForm();
-
 		List<Object> requestResult = form.buyCosmeticValidateForm(request);
 		cosmeticDao.buyCosmetic(requestResult);
 		cosmeticDao.debiteSolde(requestResult);
+		cosmeticDao.crediterSolde(requestResult);
+
 		response.sendRedirect("cosmetics");
 	}
 

@@ -21,6 +21,9 @@ public interface CosmeticDao {
 	// Debite le solde de player
 	Cosmetic debiteSolde(List<Object> requestResult) throws DAOException;
 
+	// Crediter le solde de player
+	void crediterSolde(List<Object> requestResult);
+
 	// Modifier un cosmetic
 	boolean update(long id, Cosmetic cosmetic) throws DAOException;
 

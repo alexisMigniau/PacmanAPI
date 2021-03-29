@@ -17,9 +17,6 @@ public interface PlayerDao {
 	// Modifier un joueur
 	boolean update(long id, Player player) throws DAOException;
 
-	// Ajouter du solde à un joueur
-	void setSolde(int solde, Long id_player) throws DAOException;
-
 	// Supprimer un joueur
 	boolean delete(long id) throws DAOException;
 

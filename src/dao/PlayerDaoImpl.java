@@ -108,31 +108,6 @@ public class PlayerDaoImpl implements PlayerDao {
 		return player;
 	}
 
-	private static final String SQL_UPDATE_SOLDE = "UPDATE player SET solde = ? WHERE id_player = ?";
-
-	@Override
-	public void setSolde(int solde, Long id_player) throws DAOException {
-		Connection connexion = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		Player player = null;
-
-		try {
-			// Ouverture de la connexion
-			connexion = factory.getConnection();
-			preparedStatement = initRequest(connexion, SQL_UPDATE_SOLDE, false, solde, id_player);
-			resultSet = preparedStatement.executeQuery();
-
-			if (resultSet.next()) {
-				player = map(resultSet);
-			}
-		} catch (SQLException e) {
-			throw new DAOException(e);
-		} finally {
-			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
-		}
-	}
-
 	@Override
 	public boolean update(long id, Player player) throws DAOException {
 		// TODO Auto-generated method stub

@@ -50,9 +50,8 @@
 									</h3>
 									 <button type="submit" class="btn btn-warning btn-block">Acheter</button>
 								</c:forEach>
-								<h2> -- Acheter des coins -- </h2>
-								<button type="submit" class="btn btn-warning btn-block">Acheter des coins</button>
-
+								<h2> -- Crediter son compte de coin -- </h2>
+								<button type="submit" class="btn btn-warning btn-block">Crediter +500 coins</button>
 							</form>
 						</div>
 				 	</div>

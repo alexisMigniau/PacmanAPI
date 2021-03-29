@@ -83,6 +83,31 @@ public class CosmeticDaoImpl implements CosmeticDao {
 		return cosmetic;
 	}
 
+	private static final String SQL_UPDATE_SOLDE = "UPDATE player SET solde = ? WHERE id_player = ?";
+
+	@Override
+	public void crediterSolde(List<Object> requestResult) throws DAOException {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet query_prepared = null;
+		Cosmetic cos = null;
+
+		int id_player = Integer.parseInt((String) requestResult.get(1));
+		int solde = Integer.parseInt((String) requestResult.get(3));
+		int newSolde = solde + 500;
+		
+		try {
+			// Ouverture de la connexion
+			connexion = factory.getConnection();
+			preparedStatement = initRequest(connexion, SQL_UPDATE_SOLDE, true, newSolde, id_player);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(query_prepared, preparedStatement, connexion);
+		}
+	}
+
 	private static final String SQL_SELECT_ALL = "SELECT id_cosmetic, name, price FROM cosmetic";
 
 	@Override
