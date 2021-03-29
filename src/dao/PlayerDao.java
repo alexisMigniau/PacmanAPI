@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import bean.Player;
 
 public interface PlayerDao {
@@ -17,4 +19,7 @@ public interface PlayerDao {
 	
 	// Supprimer un joueur
 	boolean delete(long id) throws DAOException;
+	
+	// Récupérer la liste tous les joueurs
+	List<Player> getAllPlayers() throws DAOException;
 }

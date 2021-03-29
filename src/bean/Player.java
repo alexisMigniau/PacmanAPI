@@ -10,6 +10,7 @@ public class Player {
 	private String nationality;
 	private Timestamp dateInscription;
 	private Integer solde;
+	private Integer rankingPoints;
 	
 	public String getPseudo() {
 		return pseudo;
@@ -54,4 +55,18 @@ public class Player {
 	public void setSolde(Integer solde) {
 		this.solde = solde;
 	}
+	
+	public Integer getRankingPoints() {
+		return rankingPoints;
+	}
+	public void setRankingPoints(Integer rankingPoints) {
+		this.rankingPoints = rankingPoints;
+	}
+	@Override
+	public String toString() {
+		return "Player [id=" + id + ", pseudo=" + pseudo + ", login=" + login + ", password=" + password
+				+ ", nationality=" + nationality + ", dateInscription=" + dateInscription + ", solde=" + solde
+				+ ", rankingPoints=" + rankingPoints + "]";
+	}
+
 }
