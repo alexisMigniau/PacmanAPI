@@ -31,12 +31,20 @@ public class Cosmetics extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setAttribute("listCosmeticsDisplay", cosmeticDao.findAll());
 
 		HttpSession session = request.getSession();
 		Player player = (Player) session.getAttribute("player");
-
 		request.setAttribute("session", player);
+
+		if (player == null) {
+			request.setAttribute("listCosmeticsDisplay", cosmeticDao.findAll());
+		} else {
+
+			request.setAttribute("listCosmeticsDisplayPossessed",
+					cosmeticDao.findAllCosmeticPossessedByPlayer(player.getId()));
+			request.setAttribute("listCosmeticsDisplay", cosmeticDao.findAllCosmeticNotBuy(player.getId()));
+		}
+
 		System.out.println(player);
 
 		this.getServletContext().getRequestDispatcher("/WEB-INF/displayCosmetics.jsp").forward(request, response);

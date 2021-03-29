@@ -111,6 +111,64 @@ public class CosmeticDaoImpl implements CosmeticDao {
 		return listCosmetic;
 	}
 
+	private static final String SQL_SELECT_ALL_POSSESSED = "SELECT DISTINCT pc.id_cosmetic, name, price FROM cosmetic INNER JOIN player_cosmetic pc ON cosmetic.id_cosmetic = pc.id_cosmetic WHERE id_player = ?	";
+
+	@Override
+	public List<Cosmetic> findAllCosmeticPossessedByPlayer(Long id_player) throws DAOException {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Cosmetic cosmetic = null;
+		List<Cosmetic> listCosmeticPossessed = new ArrayList<Cosmetic>();
+		try {
+			// Ouverture de la connexion
+			connexion = factory.getConnection();
+			preparedStatement = initRequest(connexion, SQL_SELECT_ALL_POSSESSED, false, id_player);
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				cosmetic = map(resultSet);
+				listCosmeticPossessed.add(cosmetic);
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+
+		return listCosmeticPossessed;
+	}
+
+	private static final String SQL_SELECT_ALL_NOT_BUY = "SELECT DISTINCT pc.id_cosmetic, name, price FROM cosmetic INNER JOIN player_cosmetic pc ON cosmetic.id_cosmetic <> pc.id_cosmetic WHERE id_player = ?	";
+
+	@Override
+	public List<Cosmetic> findAllCosmeticNotBuy(Long id_player) throws DAOException {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Cosmetic cosmetic = null;
+		List<Cosmetic> listCosmeticNotPossessed = new ArrayList<Cosmetic>();
+		try {
+			// Ouverture de la connexion
+			connexion = factory.getConnection();
+			preparedStatement = initRequest(connexion, SQL_SELECT_ALL_NOT_BUY, false, id_player);
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				cosmetic = map(resultSet);
+				listCosmeticNotPossessed.add(cosmetic);
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+
+		return listCosmeticNotPossessed;
+	}
+
 	@Override
 	public boolean update(long id, Cosmetic cosmetic) throws DAOException {
 		// TODO Auto-generated method stub

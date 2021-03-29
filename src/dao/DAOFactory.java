@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+import static dao.DAOUtil.*;
 
 public class DAOFactory {
 	private static final String FICHIER_PROPERTIES       = "/dao/dao.properties";
