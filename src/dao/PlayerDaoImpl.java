@@ -4,9 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 import static dao.DAOUtil.*;
 
@@ -81,7 +78,7 @@ public class PlayerDaoImpl implements PlayerDao {
 		return player;
 	}
 
-	private static final String SQL_SELECT_BY_ID = "SELECT id_player, pseudo, login, password, nationality, date_inscription, solde, ranking_points FROM player WHERE id_player = ?";
+	private static final String SQL_SELECT_BY_ID = "SELECT id_player, pseudo, login, password, nationality, date_inscription, solde FROM player WHERE id_player = ?";
 
 	@Override
 	public Player findById(Long id) throws DAOException {
@@ -130,39 +127,8 @@ public class PlayerDaoImpl implements PlayerDao {
 		player.setNationality(result.getString("nationality"));
 		player.setDateInscription(result.getTimestamp("date_inscription"));
 		player.setSolde(result.getInt("solde"));
-		player.setRankingPoints(result.getInt("ranking_points"));
 		return player;
 	}
 
-	private static final String SQL_SELECT_ALL = "SELECT * FROM player";
-
-	@Override
-	public List<Player> getAllPlayers() throws DAOException {
-
-		Connection connexion = null;
-		Statement statement = null;
-		ResultSet resultSet = null;
-
-		List<Player> playerList = new ArrayList<>();
-
-		try {
-			connexion = factory.getConnection();
-			statement = connexion.createStatement();
-			resultSet = statement.executeQuery(SQL_SELECT_ALL);
-			while (resultSet.next()) {
-				// String coffeeName = rs.getString("COF_NAME");
-				// int supplierID = rs.getInt("SUP_ID");
-				Player player = new Player();
-				player = map(resultSet);
-				playerList.add(player);
-
-			}
-		} catch (SQLException e) {
-			throw new DAOException(e);
-		} finally {
-			fermeturesSilencieuses(resultSet, statement, connexion);
-		}
-
-		return playerList;
-	}
+	
 }

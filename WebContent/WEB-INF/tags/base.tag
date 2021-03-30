@@ -22,7 +22,7 @@
 						<a class="btn btn-outline-warning" href="./exemple.jar" role="button">Télécharger</a>
 					</div>
 					<div class="col">
-						<a class="btn btn-outline-warning" href="#" role="button">Classement</a>
+						<a class="btn btn-outline-warning" href="ranking" role="button">Classement</a>
 					</div>
 					<div class="col">
 						<a class="btn btn-outline-warning" href="#" role="button">Parties</a>

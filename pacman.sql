@@ -56,18 +56,45 @@ CREATE TABLE `player` (
   `password` varchar(50) NOT NULL,
   `nationality` varchar(2) NOT NULL DEFAULT 'FR',
   `date_inscription` timestamp NOT NULL DEFAULT current_timestamp(),
-  `solde` int(11) NOT NULL DEFAULT 0,
-  `ranking_points` int(11) NOT NULL DEFAULT 0
+  `solde` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-INSERT INTO `player` (`id_player`, `pseudo`, `login`, `password`, `nationality`, `solde`, `ranking_points`) VALUES
-(1, 'Admin', 'admin', 'admin123', 'EN', 9999, 1563),
-(2, 'Gotaga', 'gotaga', 'gotaga123', 'FR', 846, 8456),
-(3, 'Wartek', 'wartek', 'wartek123', 'CH', 789, 5794),
-(4, 'TheFantasio974', 'fanta', 'fanta123', 'FR', 985, 4552),
-(5, 'Squeezie', 'squeezie', 'squeezie123', 'FR', 1256, 5821);
+INSERT INTO `player` (`id_player`, `pseudo`, `login`, `password`, `nationality`, `solde`) VALUES
+(1, 'Admin', 'admin', 'admin123', 'EN', 9999),
+(2, 'Gotaga', 'gotaga', 'gotaga123', 'FR', 846),
+(3, 'Wartek', 'wartek', 'wartek123', 'CH', 789),
+(4, 'TheFantasio974', 'fanta', 'fanta123', 'FR', 985),
+(5, 'Squeezie', 'squeezie', 'squeezie123', 'FR', 1256);
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `game`
+--
+
+CREATE TABLE `game` (
+  `id_game` int(11) NOT NULL,
+  `id_player` int(11) NOT NULL,
+  `score` int(11) NOT NULL NOT NULL DEFAULT 0,
+  `time` int(11) NOT NULL DEFAULT 0,
+  `date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+INSERT INTO `game` (`id_game`, `id_player`, `score`, `time`) VALUES
+(1, 2, 2569, 125),
+(2, 2, 2689, 119),
+(3, 2, 1998, 168),
+(4, 2, 2351, 110),
+(5, 3, 2960, 91),
+(6, 3, 2413, 101),
+(7, 4, 1722, 178),
+(8, 4, 1455, 198),
+(9, 4, 1910, 155),
+(10, 5, 1885, 165),
+(11, 5, 1733, 177),
+(12, 5, 2073, 148);
 
 -- --------------------------------------------------------
 
@@ -100,6 +127,12 @@ ALTER TABLE `player`
   ADD UNIQUE KEY `login` (`login`);
 
 --
+-- Index pour la table `game`
+--
+ALTER TABLE `game`
+  ADD PRIMARY KEY (`id_game`);
+
+--
 -- Index pour la table `player_cosmetic`
 --
 ALTER TABLE `player_cosmetic`
@@ -121,6 +154,19 @@ ALTER TABLE `cosmetic`
 --
 ALTER TABLE `player`
   MODIFY `id_player` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+--
+-- AUTO_INCREMENT pour la table `game`
+--
+ALTER TABLE `game`
+  MODIFY `id_game` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+--
+-- Contraintes pour la table `player_cosmetic`
+--
+ALTER TABLE `game`
+  ADD CONSTRAINT `FK_player` FOREIGN KEY (`id_player`) REFERENCES `player` (`id_player`);
+COMMIT;
 
 --
 -- AUTO_INCREMENT pour la table `player_cosmetic`
