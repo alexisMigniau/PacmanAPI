@@ -24,6 +24,9 @@ public interface CosmeticDao {
 	// Crediter le solde de player
 	int crediterSolde(List<Object> requestResult, int amount);
 
+	// Retourne l'id_cosmetic du cosmetic equipe
+	int getCosmeticEquiped(Long id_player);
+
 	// Equiper le joueur avec un cosmetic
 	void equipCosmetic(List<Object> requestResult);
 

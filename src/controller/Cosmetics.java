@@ -43,10 +43,8 @@ public class Cosmetics extends HttpServlet {
 			request.setAttribute("listCosmeticsDisplayPossessed",
 					cosmeticDao.findAllCosmeticPossessedByPlayer(player.getId()));
 			request.setAttribute("listCosmeticsDisplay", cosmeticDao.findAllCosmeticNotBuy(player.getId()));
-			// System.out.println(cosmeticDao.findAllCosmeticNotBuy(player.getId()));
+			request.setAttribute("cosmeticEquiped", cosmeticDao.getCosmeticEquiped(player.getId()));
 		}
-
-		// System.out.println(player);
 
 		this.getServletContext().getRequestDispatcher("/WEB-INF/displayCosmetics.jsp").forward(request, response);
 	}
@@ -80,8 +78,6 @@ public class Cosmetics extends HttpServlet {
 			player.setSolde(cosmeticDao.crediterSolde(requestResult, 500));
 		}
 		if (selectActionToDoWithForm.equals("equip")) {
-			System.out.println("id_cosmetic " + requestResult.get(0));
-			System.out.println("id_player " + requestResult.get(1));
 			cosmeticDao.equipCosmetic(requestResult);
 
 		}

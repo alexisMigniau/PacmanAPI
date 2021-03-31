@@ -38,7 +38,12 @@
 											</p>
 										</div>
 										<div class="col-3">
-											<button type="submit" class="btn btn-primary btn-block">Equiper l'item !</button>
+											<c:if test="${ cosmeticEquiped == cosmetic.id }" var="variable">
+												<button class="btn btn-secondary btn-block">Deja equipe !</button>
+											</c:if>
+											<c:if test="${!(cosmeticEquiped == cosmetic.id) }" var="variable">
+												<button type="submit" class="btn btn-primary btn-block">Equiper</button>
+											</c:if>
 										</div>
 									</div>	
 								</form>

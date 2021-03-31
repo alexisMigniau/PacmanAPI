@@ -36,9 +36,6 @@ public class CosmeticDaoImpl implements CosmeticDao {
 		int price = Integer.parseInt((String) requestResult.get(2));
 		int solde = Integer.parseInt((String) requestResult.get(3));
 
-		System.out.println(
-				"id_cosmetic " + id_cosmetic + " id_player " + id_player + " price " + price + " solde " + solde);
-
 		try {
 			// Ouverture de la connexion
 			connexion = factory.getConnection();
@@ -120,8 +117,7 @@ public class CosmeticDaoImpl implements CosmeticDao {
 
 		int id_cosmetic = Integer.parseInt((String) requestResult.get(0));
 		int id_player = Integer.parseInt((String) requestResult.get(1));
-		System.out.println("id_cosmetic ! " + id_cosmetic);
-		System.out.println("id_player ! " + id_player);
+
 		try {
 			// Ouverture de la connexion
 			connexion = factory.getConnection();
@@ -163,6 +159,32 @@ public class CosmeticDaoImpl implements CosmeticDao {
 		}
 
 		return listCosmetic;
+	}
+
+	private static final String SQL_SELECT_USED_COSMETIC = "SELECT id_cosmetic FROM player_cosmetic WHERE is_used = 1 and id_player = ?";
+
+	@Override
+	public int getCosmeticEquiped(Long id_player) throws DAOException {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Cosmetic cosmetic = null;
+		int id_cosmetic = -1;
+		try {
+			// Ouverture de la connexion
+			connexion = factory.getConnection();
+			preparedStatement = initRequest(connexion, SQL_SELECT_USED_COSMETIC, false, id_player);
+			resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+				id_cosmetic = (int) resultSet.getLong("id_cosmetic");
+			}
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return id_cosmetic;
 	}
 
 	private static final String SQL_SELECT_ALL_POSSESSED = "SELECT DISTINCT pc.id_cosmetic, name, price FROM cosmetic INNER JOIN player_cosmetic pc ON cosmetic.id_cosmetic = pc.id_cosmetic WHERE id_player = ?	";
