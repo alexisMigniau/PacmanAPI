@@ -95,7 +95,7 @@ public class CosmeticDaoImpl implements CosmeticDao {
 		int id_player = Integer.parseInt((String) requestResult.get(1));
 		int solde = Integer.parseInt((String) requestResult.get(3));
 		int newSolde = solde + 500;
-		
+
 		try {
 			// Ouverture de la connexion
 			connexion = factory.getConnection();
@@ -165,7 +165,9 @@ public class CosmeticDaoImpl implements CosmeticDao {
 		return listCosmeticPossessed;
 	}
 
-	private static final String SQL_SELECT_ALL_NOT_BUY = "SELECT DISTINCT pc.id_cosmetic, name, price FROM cosmetic INNER JOIN player_cosmetic pc ON cosmetic.id_cosmetic <> pc.id_cosmetic WHERE id_player = ?	";
+	private static final String SQL_SELECT_ALL_NOT_BUY = "SELECT id_cosmetic, name, price FROM `cosmetic` WHERE NOT "
+			+ " EXISTS ( " + " SELECT DISTINCT pc.id_cosmetic, name, price " + " FROM cosmetic "
+			+ " INNER JOIN player_cosmetic pc ON cosmetic.id_cosmetic = pc.id_cosmetic " + " WHERE id_player = ? )";
 
 	@Override
 	public List<Cosmetic> findAllCosmeticNotBuy(Long id_player) throws DAOException {

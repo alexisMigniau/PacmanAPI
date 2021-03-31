@@ -43,9 +43,10 @@ public class Cosmetics extends HttpServlet {
 			request.setAttribute("listCosmeticsDisplayPossessed",
 					cosmeticDao.findAllCosmeticPossessedByPlayer(player.getId()));
 			request.setAttribute("listCosmeticsDisplay", cosmeticDao.findAllCosmeticNotBuy(player.getId()));
+			// System.out.println(cosmeticDao.findAllCosmeticNotBuy(player.getId()));
 		}
 
-		System.out.println(player);
+		// System.out.println(player);
 
 		this.getServletContext().getRequestDispatcher("/WEB-INF/displayCosmetics.jsp").forward(request, response);
 	}

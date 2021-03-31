@@ -37,7 +37,7 @@
 									<input type="hidden" name="solde" value="${player.solde}" />
 								</p>
 							</c:forEach>
-							<h2> -- Les cosmetics disponibles à l'achat -- </h2>
+							<h2> -- Les cosmetics disponibles a l'achat -- </h2>
 							<form method="post">
 								<c:forEach items="${ listCosmeticsDisplay }" var="cosmetic" varStatus="status">
 									<h3>
