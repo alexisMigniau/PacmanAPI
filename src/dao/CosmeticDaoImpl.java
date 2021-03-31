@@ -38,9 +38,11 @@ public class CosmeticDaoImpl implements CosmeticDao {
 
 		try {
 			// Ouverture de la connexion
-			connexion = factory.getConnection();
-			preparedStatement = initRequest(connexion, SQL_INSERT_PLAYER_COSMETIC, true, id_cosmetic, id_player);
-			int statut = preparedStatement.executeUpdate();
+			if (solde - price > 0) {
+				connexion = factory.getConnection();
+				preparedStatement = initRequest(connexion, SQL_INSERT_PLAYER_COSMETIC, true, id_cosmetic, id_player);
+				int statut = preparedStatement.executeUpdate();
+			}
 
 		} catch (SQLException e) {
 			throw new DAOException(e);
@@ -67,9 +69,13 @@ public class CosmeticDaoImpl implements CosmeticDao {
 
 		try {
 			// Ouverture de la connexion
-			connexion = factory.getConnection();
-			preparedStatement = initRequest(connexion, SQL_UPDATE_SOLDE_PLAYER, true, newSolde, id_player);
-			int statut = preparedStatement.executeUpdate();
+			if (newSolde > 0) {
+				connexion = factory.getConnection();
+				preparedStatement = initRequest(connexion, SQL_UPDATE_SOLDE_PLAYER, true, newSolde, id_player);
+				int statut = preparedStatement.executeUpdate();
+			} else {
+				newSolde = 0;
+			}
 
 		} catch (SQLException e) {
 			throw new DAOException(e);
