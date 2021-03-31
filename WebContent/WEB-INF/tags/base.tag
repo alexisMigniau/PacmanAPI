@@ -8,6 +8,7 @@
 		<title>Pacman</title>
 		
 		<!-- Bootstrap CSS -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 		<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
 	</head>
@@ -43,7 +44,7 @@
 					<!-- Si l'utilisateur est connecté -->
 					<c:if test="${not empty sessionScope.player }">
 						<div class="col">
-							<a class="btn btn-outline-warning" href="#" role="button">Profil</a>
+							<a class="btn btn-outline-warning" href="profile" role="button">Profil</a>
 						</div>
 						<div class="col">
 							<a class="btn btn-outline-warning" href="logout" role="button">Déconnexion</a>

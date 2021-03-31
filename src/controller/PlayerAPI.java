@@ -15,7 +15,7 @@ import dao.PlayerDao;
  * Servlet implementation class Player
  */
 @WebServlet("/player")
-public class Player extends HttpServlet {
+public class PlayerAPI extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 private PlayerDao playerDao;

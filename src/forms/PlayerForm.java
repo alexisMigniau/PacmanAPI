@@ -85,6 +85,58 @@ public class PlayerForm {
          return player;
     }
     
+    public Player updatePlayer(HttpServletRequest request) {
+    	String login = getValeurChamp( request, CHAMP_LOGIN );
+        String motDePasse = getValeurChamp( request, CHAMP_PASS );
+        String confirmation = getValeurChamp( request, CHAMP_CONF );
+        String pseudo = getValeurChamp( request, CHAMP_PSEUDO );
+        String nat = getValeurChamp( request, CHAMP_NAT );
+        
+        Player player = new Player();
+         
+        if(motDePasse != "" || confirmation != "")
+        {
+	        try {
+	            validationMotsDePasse( motDePasse, confirmation );
+	        } catch ( Exception e ) {
+	            setErreur( CHAMP_PASS, e.getMessage() );
+	            setErreur( CHAMP_CONF, null );
+	        }
+	        player.setPassword(motDePasse);
+        } else {
+        	player.setPassword(null);
+        }
+
+        try {
+            validationLogin( login );
+        } catch ( Exception e ) {
+            setErreur( CHAMP_LOGIN, e.getMessage() );
+        }
+        player.setLogin(login);
+        
+        try {
+            validationPseudo( pseudo );
+        } catch ( Exception e ) {
+            setErreur( CHAMP_PSEUDO, e.getMessage() );
+        }
+        player.setPseudo(pseudo);
+        
+        try {
+            validationNat( nat );
+        } catch ( Exception e ) {
+            setErreur( CHAMP_NAT, e.getMessage() );
+        }
+        player.setNationality(nat);
+        
+        if ( erreurs.isEmpty() ) {
+            resultat = "Les informations ont bien été changées";
+        } else {
+            resultat = "Échec du changement des informations";
+        }
+        
+		return player;
+	}
+    
     private void validationMotsDePasse( String motDePasse, String confirmation ) throws Exception {
         if ( motDePasse != null && confirmation != null ) {
             if ( !motDePasse.equals( confirmation ) ) {

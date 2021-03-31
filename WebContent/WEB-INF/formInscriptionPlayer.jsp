@@ -18,7 +18,7 @@
 	                </div>
 	                <div class="form-group col-md-6">
 	                	<label for="pseudo">Pseudo</label>
-                		<input class="form-control ${not empty form.erreurs.login ? 'is-invalid' : '' }" type="text" id="pseudo" name="pseudo" value="${utilisateur.pseudo}" size="20" maxlength="20" />
+                		<input class="form-control ${not empty form.erreurs.pseudo ? 'is-invalid' : '' }" type="text" id="pseudo" name="pseudo" value="${utilisateur.pseudo}" size="20" maxlength="20" />
                 		<small id="pseudoHelp" class="form-text text-muted">Il sera afficher pour tous les joueurs</small>
                 		<c:if test="${not empty form.erreurs.pseudo}">
 		                	<div class="invalid-feedback">

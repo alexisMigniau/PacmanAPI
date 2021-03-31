@@ -105,10 +105,36 @@ public class PlayerDaoImpl implements PlayerDao {
 		return player;
 	}
 
+	private static final String SQL_UPDATE = "UPDATE player SET pseudo = ?, login = ?, nationality = ? WHERE id_player = ?";
+	private static final String SQL_UPDATE_WITH_PASSWORD = "UPDATE player SET pseudo = ?, login = ?, nationality = ?, password = MD5(?) WHERE id_player = ?";
+	
 	@Override
-	public boolean update(long id, Player player) throws DAOException {
-		// TODO Auto-generated method stub
-		return false;
+	public void update(Player player) throws DAOException {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet valeursAutoGenerees = null;
+
+		try {
+			/* Récupération d'une connexion depuis la Factory */
+			connexion = factory.getConnection();
+			
+			// Si le mot de passe est différent de null, ça veut dire qu'on doit le modifier
+			if(player.getPassword() == null)
+				preparedStatement = initRequest(connexion, SQL_UPDATE, false, player.getPseudo(), player.getLogin(),player.getNationality(),player.getId());
+			else
+				preparedStatement = initRequest(connexion, SQL_UPDATE_WITH_PASSWORD, false, player.getPseudo(), player.getLogin(),player.getNationality(),player.getPassword(),player.getId());
+			
+			int statut = preparedStatement.executeUpdate();
+			/* Analyse du statut retourné par la requête d'update */
+			if (statut == 0) {
+				throw new DAOException("Échec de la mise à jour des informations");
+			}
+			
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(valeursAutoGenerees, preparedStatement, connexion);
+		}
 	}
 
 	@Override
