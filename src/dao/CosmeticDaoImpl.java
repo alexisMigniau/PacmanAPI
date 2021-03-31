@@ -86,7 +86,7 @@ public class CosmeticDaoImpl implements CosmeticDao {
 	private static final String SQL_UPDATE_SOLDE = "UPDATE player SET solde = ? WHERE id_player = ?";
 
 	@Override
-	public void crediterSolde(List<Object> requestResult) throws DAOException {
+	public void crediterSolde(List<Object> requestResult, int amount) throws DAOException {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet query_prepared = null;
@@ -94,7 +94,7 @@ public class CosmeticDaoImpl implements CosmeticDao {
 
 		int id_player = Integer.parseInt((String) requestResult.get(1));
 		int solde = Integer.parseInt((String) requestResult.get(3));
-		int newSolde = solde + 500;
+		int newSolde = solde + amount;
 
 		try {
 			// Ouverture de la connexion
@@ -165,9 +165,7 @@ public class CosmeticDaoImpl implements CosmeticDao {
 		return listCosmeticPossessed;
 	}
 
-	private static final String SQL_SELECT_ALL_NOT_BUY = "SELECT id_cosmetic, name, price FROM `cosmetic` WHERE NOT "
-			+ " EXISTS ( " + " SELECT DISTINCT pc.id_cosmetic, name, price " + " FROM cosmetic "
-			+ " INNER JOIN player_cosmetic pc ON cosmetic.id_cosmetic = pc.id_cosmetic " + " WHERE id_player = ? )";
+	private static final String SQL_SELECT_ALL_NOT_BUY = "SELECT c.id_cosmetic, c.name, c.price FROM cosmetic c WHERE c.id_cosmetic NOT IN ( SELECT DISTINCT pc.id_cosmetic FROM cosmetic INNER JOIN player_cosmetic pc ON cosmetic.id_cosmetic = pc.id_cosmetic WHERE id_player = ? )	";
 
 	@Override
 	public List<Cosmetic> findAllCosmeticNotBuy(Long id_player) throws DAOException {

@@ -22,7 +22,7 @@ public interface CosmeticDao {
 	Cosmetic debiteSolde(List<Object> requestResult) throws DAOException;
 
 	// Crediter le solde de player
-	void crediterSolde(List<Object> requestResult);
+	void crediterSolde(List<Object> requestResult, int amount);
 
 	// Modifier un cosmetic
 	boolean update(long id, Cosmetic cosmetic) throws DAOException;

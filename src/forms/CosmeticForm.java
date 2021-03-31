@@ -27,7 +27,7 @@ public class CosmeticForm {
         return erreurs;
     }
 
-    public List<Object> buyCosmeticValidateForm(HttpServletRequest request) {
+    public List<Object> cosmeticValidateForm(HttpServletRequest request) {
         String idCosmetic = getValeurChamp(request, CHAMP_id_cosmetic);
         String idPlayer = getValeurChamp(request, CHAMP_id_player);
         String price = getValeurChamp(request, CHAMP_price);
@@ -40,7 +40,7 @@ public class CosmeticForm {
         lstObjectRequest.add(solde);
 
         try {
-            validationCapaciteAchat(Integer.parseInt(price), Integer.parseInt(solde));
+            // validationCapaciteAchat(Integer.parseInt(price), Integer.parseInt(solde));
         } catch (Exception e) {
             setErreur(CHAMP_id_cosmetic, e.getMessage());
         }
@@ -76,7 +76,7 @@ public class CosmeticForm {
      * Méthode utilitaire qui retourne null si un champ est vide, et son contenu
      * sinon.
      */
-    private static String getValeurChamp(HttpServletRequest request, String nomChamp) {
+    public static String getValeurChamp(HttpServletRequest request, String nomChamp) {
         String valeur = request.getParameter(nomChamp);
         if (valeur == null || valeur.trim().length() == 0) {
             return "";

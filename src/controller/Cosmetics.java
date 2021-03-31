@@ -39,7 +39,7 @@ public class Cosmetics extends HttpServlet {
 		if (player == null) {
 			request.setAttribute("listCosmeticsDisplay", cosmeticDao.findAll());
 		} else {
-
+			// If user is connected
 			request.setAttribute("listCosmeticsDisplayPossessed",
 					cosmeticDao.findAllCosmeticPossessedByPlayer(player.getId()));
 			request.setAttribute("listCosmeticsDisplay", cosmeticDao.findAllCosmeticNotBuy(player.getId()));
@@ -60,10 +60,20 @@ public class Cosmetics extends HttpServlet {
 
 		// Création du formulaire
 		CosmeticForm form = new CosmeticForm();
-		List<Object> requestResult = form.buyCosmeticValidateForm(request);
-		cosmeticDao.buyCosmetic(requestResult);
-		cosmeticDao.debiteSolde(requestResult);
-		cosmeticDao.crediterSolde(requestResult);
+		List<Object> requestResult = form.cosmeticValidateForm(request);
+		String selectActionToDoWithForm = form.getValeurChamp(request, "action_param");
+
+		if (selectActionToDoWithForm.equals("buy")) {
+			cosmeticDao.buyCosmetic(requestResult);
+			cosmeticDao.debiteSolde(requestResult);
+			System.out.println("passer dans buy avec succes");
+		}
+		if (selectActionToDoWithForm.equals("credit")) {
+			// System.out.println("id_Player " + requestResult.get(1));
+			// System.out.println("solde " + requestResult.get(3));
+
+			cosmeticDao.crediterSolde(requestResult, 500);
+		}
 
 		response.sendRedirect("cosmetics");
 	}
