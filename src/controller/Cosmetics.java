@@ -75,6 +75,11 @@ public class Cosmetics extends HttpServlet {
 			cosmeticDao.crediterSolde(requestResult, 500);
 		}
 
+		HttpSession session = request.getSession();
+		Player player = (Player) session.getAttribute("player");
+		// J'ai mis en dur pour tester mais le mieux, c'est que ta fonction crediterSolde retourne le nouveau solde
+		player.setSolde(player.getSolde()+500);
+		
 		response.sendRedirect("cosmetics");
 	}
 
