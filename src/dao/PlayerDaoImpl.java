@@ -137,10 +137,28 @@ public class PlayerDaoImpl implements PlayerDao {
 		}
 	}
 
+	private static final String SQL_DELETE = " DELETE FROM player WHERE id_player = ?";
+	
 	@Override
-	public boolean delete(long id) throws DAOException {
-		// TODO Auto-generated method stub
-		return false;
+	public void delete(long id) throws DAOException {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet valeursAutoGenerees = null;
+
+		try {
+			/* Récupération d'une connexion depuis la Factory */
+			connexion = factory.getConnection();
+			preparedStatement = initRequest(connexion, SQL_DELETE, false, id);
+			int statut = preparedStatement.executeUpdate();
+			/* Analyse du statut retourné par la requête Delete */
+			if (statut == 0) {
+				throw new DAOException("Échec de la suppression du compte");
+			}	
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(valeursAutoGenerees, preparedStatement, connexion);
+		}
 	}
 
 	// Transformation d'un résultat SQL en bean

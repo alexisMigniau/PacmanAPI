@@ -58,7 +58,7 @@ public class PlayerConnexion extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("player", player);
 			
-			response.sendRedirect(request.getContextPath());
+			response.sendRedirect(request.getContextPath() + "/home");
 		}
 	}
 

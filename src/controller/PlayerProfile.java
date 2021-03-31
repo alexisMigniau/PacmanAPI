@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -96,7 +98,26 @@ public class PlayerProfile extends HttpServlet {
 	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// Récupération de l'id du joueur à supprimé depuis la variable de session
+		HttpSession session = request.getSession();
+		Long id_player = ((Player)session.getAttribute("player")).getId();
+		
+		playerDao.delete(id_player);
+		
+		// On supprime les variables de session car on déconnecte le joueur après la suppression de son compte
+		request.getSession().invalidate();
+		request.logout();
+		
+		// Parse to JSON Format
+		String json = "{ \"resultat\" : " + true + ", \"message\" : \"Le compte à bien été supprimé, redirection sur la page d'accueil\"}";
+		
+		// On retourne les données au format JSON
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		
+		PrintWriter out = response.getWriter();
+		out.print(json);
+		out.flush();
 	}
 
 }

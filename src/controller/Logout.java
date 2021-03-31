@@ -31,7 +31,7 @@ public class Logout extends HttpServlet {
 		request.logout();
 		
 		// Redirection sur la page d'accueil
-		response.sendRedirect(request.getContextPath());
+		response.sendRedirect(request.getContextPath() + "/home");
 	}
 
 }

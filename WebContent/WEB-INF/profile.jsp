@@ -51,7 +51,7 @@
 		                </div>
 		                <br />
 	                </c:if>
-	                <div class="row">
+	                <div class="row justify-content-between">
 	                	<div class="form-group col-md-4">
 		                	<label for="nationalite">Pays</label>
 					      	<select id="nationalite" name="nationalite" class="form-control" ${editable ? "" : "disabled"} >
@@ -302,6 +302,11 @@
 							    <option value="ZW">Zimbabwe</option>
 					      	</select>
 	                	</div>
+	                	<c:if test="${editable }">
+		                	<div class="col-md-2 align-self-end">
+		                		<button type="button" class="btn btn-danger" onclick="deleteProfile()"><i class="fas fa-trash-alt"></i> Supprimer le compte</button>
+		                	</div>
+		                </c:if>
 	                </div>
 	                <br />
 	                <c:if test="${editable }">
@@ -321,7 +326,22 @@
 	        	<script type="text/javascript">
 	        	$( document ).ready(function() {
 	        	   $('#nationalite').val("${profile.nationality}");
+	        	   
 	        	});
+	        	
+	        	function deleteProfile(){
+	        		$.ajax({
+	                    url: 'profile',
+	                    type: 'DELETE',
+	                    success: function (data) {
+	                        confirm("Compte supprimé, retour à la page d'accueil")
+	                        window.location.href = "home";
+	                    },
+						error : function(resultat, statut, erreur){
+							alert("Erreur lors de la suppresion du compte")
+	                    }
+	                });
+	        	}
 				</script>
 	        </c:if>
        	</div>

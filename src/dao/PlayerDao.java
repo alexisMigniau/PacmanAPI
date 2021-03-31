@@ -16,5 +16,5 @@ public interface PlayerDao {
 	void update(Player player) throws DAOException;
 
 	// Supprimer un joueur
-	boolean delete(long id) throws DAOException;
+	void delete(long id) throws DAOException;
 }

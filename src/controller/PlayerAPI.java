@@ -57,7 +57,7 @@ private PlayerDao playerDao;
 		}
 		
 		// Parse to JSON Format
-		String json = "{ resultat : '" + result + "'\n, message : '" + message + "'}";
+		String json = "{ \"resultat\" : \""+ result + "\", \"message\" : \"" + message + "\"}";
 		
 		// On retourne les données au format JSON
 		response.setContentType("application/json");
