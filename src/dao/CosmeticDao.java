@@ -19,10 +19,10 @@ public interface CosmeticDao {
 	Cosmetic buyCosmetic(List<Object> requestResult) throws DAOException;
 
 	// Debite le solde de player
-	Cosmetic debiteSolde(List<Object> requestResult) throws DAOException;
+	int debiteSolde(List<Object> requestResult) throws DAOException;
 
 	// Crediter le solde de player
-	void crediterSolde(List<Object> requestResult, int amount);
+	int crediterSolde(List<Object> requestResult, int amount);
 
 	// Modifier un cosmetic
 	boolean update(long id, Cosmetic cosmetic) throws DAOException;

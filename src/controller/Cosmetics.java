@@ -60,26 +60,34 @@ public class Cosmetics extends HttpServlet {
 
 		// Création du formulaire
 		CosmeticForm form = new CosmeticForm();
+
+		String idCosmetic = request.getParameter("id_cosmetic");
+		String idCosmeticss = request.getParameter("id_cosmeticss");
+		String idCosmeticsss = request.getParameter("id_cosmeticsss");
+		String idPlayer = request.getParameter("id_player");
+		String price = request.getParameter("price");
+		String solde = request.getParameter("solde");
+
+		// System.out.println("-idCosmetic : " + idCosmetic);
+		// System.out.println("-idPlayer : " + idPlayer);
+		// System.out.println("-price : " + price);
+		// System.out.println("-solde : " + solde);
+
 		List<Object> requestResult = form.cosmeticValidateForm(request);
 		String selectActionToDoWithForm = form.getValeurChamp(request, "action_param");
-
+		HttpSession session = request.getSession();
+		Player player = (Player) session.getAttribute("player");
 		if (selectActionToDoWithForm.equals("buy")) {
 			cosmeticDao.buyCosmetic(requestResult);
-			cosmeticDao.debiteSolde(requestResult);
+			player.setSolde(cosmeticDao.debiteSolde(requestResult));
 			System.out.println("passer dans buy avec succes");
 		}
 		if (selectActionToDoWithForm.equals("credit")) {
 			// System.out.println("id_Player " + requestResult.get(1));
 			// System.out.println("solde " + requestResult.get(3));
 
-			cosmeticDao.crediterSolde(requestResult, 500);
+			player.setSolde(cosmeticDao.crediterSolde(requestResult, 500));
 		}
-
-		HttpSession session = request.getSession();
-		Player player = (Player) session.getAttribute("player");
-		// J'ai mis en dur pour tester mais le mieux, c'est que ta fonction crediterSolde retourne le nouveau solde
-		player.setSolde(player.getSolde()+500);
-		
 		response.sendRedirect("cosmetics");
 	}
 

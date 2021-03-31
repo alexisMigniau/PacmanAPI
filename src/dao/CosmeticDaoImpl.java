@@ -25,7 +25,6 @@ public class CosmeticDaoImpl implements CosmeticDao {
 
 	// Verifier que le joueur n a pas deja la cosmetic en question
 	// AJouter une ligne dans player_cometic
-	// Debiter le solde du joueur
 	@Override
 	public Cosmetic buyCosmetic(List<Object> requestResult) throws DAOException {
 		Connection connexion = null;
@@ -58,7 +57,7 @@ public class CosmeticDaoImpl implements CosmeticDao {
 	private static final String SQL_UPDATE_SOLDE_PLAYER = "UPDATE `player` SET solde = ? WHERE player.id_player = ?";
 
 	@Override
-	public Cosmetic debiteSolde(List<Object> requestResult) throws DAOException {
+	public int debiteSolde(List<Object> requestResult) throws DAOException {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -68,7 +67,7 @@ public class CosmeticDaoImpl implements CosmeticDao {
 		int price = Integer.parseInt((String) requestResult.get(2));
 		int solde = Integer.parseInt((String) requestResult.get(3));
 		int newSolde = solde - price;
-		System.out.println("newSolde " + newSolde);
+
 		try {
 			// Ouverture de la connexion
 			connexion = factory.getConnection();
@@ -80,13 +79,13 @@ public class CosmeticDaoImpl implements CosmeticDao {
 		} finally {
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
-		return cosmetic;
+		return newSolde;
 	}
 
 	private static final String SQL_UPDATE_SOLDE = "UPDATE player SET solde = ? WHERE id_player = ?";
 
 	@Override
-	public void crediterSolde(List<Object> requestResult, int amount) throws DAOException {
+	public int crediterSolde(List<Object> requestResult, int amount) throws DAOException {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet query_prepared = null;
@@ -106,6 +105,7 @@ public class CosmeticDaoImpl implements CosmeticDao {
 		} finally {
 			fermeturesSilencieuses(query_prepared, preparedStatement, connexion);
 		}
+		return newSolde;
 	}
 
 	private static final String SQL_SELECT_ALL = "SELECT id_cosmetic, name, price FROM cosmetic";

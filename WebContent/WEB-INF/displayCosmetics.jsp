@@ -2,13 +2,10 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <t:base>
     <jsp:body>
-        <form method="post">
         	<div class="container">
         		<br />
-
 				<br />
                 <br />
-
 				<c:if test="${ empty session }">
 					<div class="row">
 						<div class="row">
@@ -38,20 +35,22 @@
 								</p>
 							</c:forEach>
 							<h2> -- Les cosmetics disponibles a l'achat -- </h2>
-							<form method="post">
 								<c:forEach items="${ listCosmeticsDisplay }" var="cosmetic" varStatus="status">
-									<h3>
-										<label for="${cosmetic.id }">${cosmetic.name}</label>
-										<span>${cosmetic.price} coins</span>
-										<input type="hidden" name="action_param" value="buy" />
-										<input type="hidden" name="id_cosmetic" value="${cosmetic.id}" />
-										<input type="hidden" name="id_player" value="${player.id}" />
-										<input type="hidden" name="price" value="${cosmetic.price}" />
-										<input type="hidden" name="solde" value="${player.solde}" />
-									</h3>
-									 <button type="submit" class="btn btn-warning btn-block">Acheter</button>
+									<form method="post">
+										<h3>
+											<label for="${cosmetic.id}">${cosmetic.name}</label>
+											<span>${cosmetic.id} coins</span>
+											<input type="hidden" name="action_param" value="buy" />
+											<input type="hidden" name="id_cosmetic" value="${cosmetic.id}" />
+											<input type="hidden" name="id_player" value="${player.id}" />
+											<input type="hidden" name="price" value="${cosmetic.price}" />
+											<input type="hidden" name="solde" value="${player.solde}" />
+										</h3>
+										<div class="row col-2">
+											<button type="submit" class="btn btn-warning btn-block">Acheter !</button>
+										</div>
+									</form>
 								</c:forEach>
-							</form>
 							<form method="post">
 								<h2> -- Crediter son compte de coin -- </h2>
 								<input type="hidden" name="action_param" value="credit" />
@@ -67,8 +66,6 @@
 						${form.resultat} 
 					</div>
 				</c:if>
-        	</div>
-        </form>
-        
+        	</div>        
     </jsp:body>
 </t:base>
