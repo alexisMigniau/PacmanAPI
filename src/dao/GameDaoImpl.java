@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -22,6 +23,7 @@ public class GameDaoImpl implements GameDao {
 	}
 
 	private static final String SQL_SELECT_ALL = "SELECT * FROM game";
+	private static final String SQL_SELECT_BYIDPLAYER = "SELECT * FROM game WHERE id_player = ?";
 
 	@Override
 	public List<Game> findAll() throws DAOException {
@@ -53,9 +55,32 @@ public class GameDaoImpl implements GameDao {
 	}
 
 	@Override
-	public Player findByPlayerId(Long id) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Game> findByPlayerId(Long idPlayer) throws DAOException {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		Game game = null;
+		
+		List<Game> gameList = new ArrayList<>();
+		
+		try {
+			connexion = factory.getConnection();
+			preparedStatement = initRequest(connexion, SQL_SELECT_BYIDPLAYER, false, idPlayer);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				System.out.println("coucou");
+				Player player =  this.factory.getPlayerDao().findById(idPlayer);
+				game = map(resultSet, player);
+				gameList.add(game);
+			}
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		
+		return gameList;
 	}
 	
 	

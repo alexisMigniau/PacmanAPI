@@ -26,9 +26,6 @@
 						<a class="btn btn-outline-warning" href="ranking" role="button">Classement</a>
 					</div>
 					<div class="col">
-						<a class="btn btn-outline-warning" href="#" role="button">Parties</a>
-					</div>
-					<div class="col">
 						<a class="btn btn-outline-warning" href="cosmetics" role="button">Cosmétiques</a>
 					</div>
 					
@@ -45,6 +42,9 @@
 					<c:if test="${not empty sessionScope.player }">
 						<div class="col">
 							<a class="btn btn-outline-warning" href="profile" role="button">Profil</a>
+						</div>
+						<div class="col">
+							<a class="btn btn-outline-warning" href="games" role="button">Historique</a>
 						</div>
 						<div class="col">
 							<a class="btn btn-outline-warning" href="logout" role="button">Déconnexion</a>

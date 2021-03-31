@@ -7,9 +7,9 @@ import bean.Player;
 
 public interface GameDao {
 
-	// Connexion
+	// Récupérer toutes les parties
 	List<Game> findAll() throws DAOException;
 
-	// Profil
-	Player findByPlayerId(Long id) throws DAOException;
+	// Récupérer les parties d'un joueur précis
+	List<Game> findByPlayerId(Long idPlayer) throws DAOException;
 }
