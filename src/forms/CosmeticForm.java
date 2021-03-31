@@ -27,9 +27,9 @@ public class CosmeticForm {
         return erreurs;
     }
 
-    public List<Object> cosmeticValidateForm(HttpServletRequest request) {
+    public List<Object> cosmeticValidateForm(HttpServletRequest request, Player player) {
         String idCosmetic = getValeurChamp(request, CHAMP_id_cosmetic);
-        String idPlayer = getValeurChamp(request, CHAMP_id_player);
+        String idPlayer = player.getId().toString();
         String price = getValeurChamp(request, CHAMP_price);
         String solde = getValeurChamp(request, CHAMP_solde);
 

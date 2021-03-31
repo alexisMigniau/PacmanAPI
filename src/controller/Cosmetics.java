@@ -59,17 +59,12 @@ public class Cosmetics extends HttpServlet {
 		// Création du formulaire
 		CosmeticForm form = new CosmeticForm();
 
-		String idCosmetic = request.getParameter("id_cosmetic");
-		String idCosmeticss = request.getParameter("id_cosmeticss");
-		String idCosmeticsss = request.getParameter("id_cosmeticsss");
-		String idPlayer = request.getParameter("id_player");
-		String price = request.getParameter("price");
-		String solde = request.getParameter("solde");
-
-		List<Object> requestResult = form.cosmeticValidateForm(request);
-		String selectActionToDoWithForm = form.getValeurChamp(request, "action_param");
 		HttpSession session = request.getSession();
 		Player player = (Player) session.getAttribute("player");
+
+		List<Object> requestResult = form.cosmeticValidateForm(request, player);
+		String selectActionToDoWithForm = form.getValeurChamp(request, "action_param");
+
 		if (selectActionToDoWithForm.equals("buy")) {
 			cosmeticDao.buyCosmetic(requestResult);
 			player.setSolde(cosmeticDao.debiteSolde(requestResult));
