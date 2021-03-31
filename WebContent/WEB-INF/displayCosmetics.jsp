@@ -25,14 +25,23 @@
 						<div class="row">
 							<h2>-- Vos cosmetics -- </h2>
 							<c:forEach items="${ listCosmeticsDisplayPossessed }" var="cosmetic" varStatus="status">
-								<p>
-									<label for="${cosmetic.id }">${cosmetic.name}</label>
-									<span>${cosmetic.price} coins</span>
-									<input type="hidden" name="id_cosmetic" value="${cosmetic.id}" />
-									<input type="hidden" name="id_player" value="${player.id}" />
-									<input type="hidden" name="price" value="${cosmetic.price}" />
-									<input type="hidden" name="solde" value="${player.solde}" />
-								</p>
+								<form method="post">
+									<div class="row">
+										<div class="col-5">
+											<p>
+												<label for="${cosmetic.id }">${cosmetic.name}</label>
+												<span>${cosmetic.price} coins</span>
+												<input type="hidden" name="action_param" value="equip" />
+												<input type="hidden" name="id_cosmetic" value="${cosmetic.id}" />
+												<input type="hidden" name="id_player" value="${player.id}" />
+
+											</p>
+										</div>
+										<div class="col-3">
+											<button type="submit" class="btn btn-primary btn-block">Equiper l'item !</button>
+										</div>
+									</div>	
+								</form>
 							</c:forEach>
 							<h2> -- Les cosmetics disponibles a l'achat -- </h2>
 								<c:forEach items="${ listCosmeticsDisplay }" var="cosmetic" varStatus="status">

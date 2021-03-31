@@ -32,7 +32,6 @@ public class CosmeticForm {
         String idPlayer = getValeurChamp(request, CHAMP_id_player);
         String price = getValeurChamp(request, CHAMP_price);
         String solde = getValeurChamp(request, CHAMP_solde);
-        System.out.println("idCosmetic !!! " + idCosmetic); // 1
         List<Object> lstObjectRequest = new ArrayList<Object>();
         lstObjectRequest.add(idCosmetic);
         lstObjectRequest.add(idPlayer);

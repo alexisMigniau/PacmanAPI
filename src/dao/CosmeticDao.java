@@ -24,6 +24,9 @@ public interface CosmeticDao {
 	// Crediter le solde de player
 	int crediterSolde(List<Object> requestResult, int amount);
 
+	// Equiper le joueur avec un cosmetic
+	void equipCosmetic(List<Object> requestResult);
+
 	// Modifier un cosmetic
 	boolean update(long id, Cosmetic cosmetic) throws DAOException;
 

@@ -68,11 +68,6 @@ public class Cosmetics extends HttpServlet {
 		String price = request.getParameter("price");
 		String solde = request.getParameter("solde");
 
-		// System.out.println("-idCosmetic : " + idCosmetic);
-		// System.out.println("-idPlayer : " + idPlayer);
-		// System.out.println("-price : " + price);
-		// System.out.println("-solde : " + solde);
-
 		List<Object> requestResult = form.cosmeticValidateForm(request);
 		String selectActionToDoWithForm = form.getValeurChamp(request, "action_param");
 		HttpSession session = request.getSession();
@@ -80,14 +75,17 @@ public class Cosmetics extends HttpServlet {
 		if (selectActionToDoWithForm.equals("buy")) {
 			cosmeticDao.buyCosmetic(requestResult);
 			player.setSolde(cosmeticDao.debiteSolde(requestResult));
-			System.out.println("passer dans buy avec succes");
 		}
 		if (selectActionToDoWithForm.equals("credit")) {
-			// System.out.println("id_Player " + requestResult.get(1));
-			// System.out.println("solde " + requestResult.get(3));
-
 			player.setSolde(cosmeticDao.crediterSolde(requestResult, 500));
 		}
+		if (selectActionToDoWithForm.equals("equip")) {
+			System.out.println("id_cosmetic " + requestResult.get(0));
+			System.out.println("id_player " + requestResult.get(1));
+			cosmeticDao.equipCosmetic(requestResult);
+
+		}
+
 		response.sendRedirect("cosmetics");
 	}
 
