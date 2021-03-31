@@ -69,7 +69,6 @@ public class GameDaoImpl implements GameDao {
 			preparedStatement = initRequest(connexion, SQL_SELECT_BYIDPLAYER, false, idPlayer);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				System.out.println("coucou");
 				Player player =  this.factory.getPlayerDao().findById(idPlayer);
 				game = map(resultSet, player);
 				gameList.add(game);

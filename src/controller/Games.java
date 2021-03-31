@@ -39,15 +39,11 @@ public class Games extends HttpServlet {
 		bean.Player player = (bean.Player) session.getAttribute("player");
 		System.out.println(session.getAttribute("player"));
 		
-		if (player != null) {
-			System.out.println("Joueur trouvé !");
-			
+		if (player != null) {			
 			List<Game> gameList = gameDao.findByPlayerId(player.getId());
 			
 			request.setAttribute("session", player);
 			request.setAttribute("games", gameList);
-			
-			System.out.println(gameList.toString());
 		}
 		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/displayGames.jsp").forward(request, response);
