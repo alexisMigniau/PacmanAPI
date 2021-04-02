@@ -32,11 +32,8 @@ public class CurrentCosmetic extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession();
 		String loginplayer = request.getParameter("login");
-		
 		//currentCosmetic?login=X
-		System.out.println("LOGIN PARAM " + loginplayer);
 		request.setAttribute("getColorCosmeticEquiped", cosmeticDao.getColorCosmeticEquiped(loginplayer));
 		this.getServletContext().getRequestDispatcher("/WEB-INF/JSON/CurrentCosmetic.jsp").forward( request, response );
 
