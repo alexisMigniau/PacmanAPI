@@ -39,6 +39,11 @@ public class PlayerConnexion extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		// Si le paramètre Token est présent, ça veut dire que c'est le serveur qui interroge donc on retourne sous forme de JSON et non en vue HTML
+		String token = request.getParameter("token");
+		
+		
 		// Création du formulaire
 		PlayerForm form = new PlayerForm();
 		
@@ -46,19 +51,47 @@ public class PlayerConnexion extends HttpServlet {
 		
 		player = playerDao.findByLogin(player.getLogin(), player.getPassword());
 		
-		// Si on ne trouve pas de joueur alors on renvoie une erreur, et on renvoie sur la page de connexion
-		if(player == null)
+		if(token == null)
 		{
-			request.setAttribute("erreur", true);
-			this.getServletContext().getRequestDispatcher("/WEB-INF/formConnexionPlayer.jsp").forward( request, response );
-		}
-		// Si on trouve un joueur, alors on définit les variables de session, et on renvoie sur la page d'accueil
-		else {
-			player.setPassword("");
-			HttpSession session = request.getSession();
-			session.setAttribute("player", player);
+			// Si on ne trouve pas de joueur alors on renvoie une erreur, et on renvoie sur la page de connexion
+			if(player == null)
+			{
+				request.setAttribute("erreur", true);
+				this.getServletContext().getRequestDispatcher("/WEB-INF/formConnexionPlayer.jsp").forward( request, response );
+			}
+			// Si on trouve un joueur, alors on définit les variables de session, et on renvoie sur la page d'accueil
+			else {
+				player.setPassword("");
+				HttpSession session = request.getSession();
+				session.setAttribute("player", player);
+				
+				response.sendRedirect(request.getContextPath() + "/home");
+			}
 			
-			response.sendRedirect(request.getContextPath() + "/home");
+		} 
+		// Si le token est valide alors on renvoie le résultat sous forme de JSON
+		else if(token.equals("8RCrv0rBNjpPPtTXvOTV"))
+		{
+			boolean resultat = true;
+			String message = "Connexion réussie";
+			
+			// Si aucun joueur trouvé alors on renvoie faux
+			if(player == null)
+			{
+				resultat = false;
+				message = "Aucun compte trouvé avec couple login password";
+			}
+			
+			request.setAttribute("resultat", resultat);
+			request.setAttribute("message", message);
+			
+			this.getServletContext().getRequestDispatcher("/WEB-INF/JSON/ConnexionPlayer.jsp").forward( request, response );
+		} else {
+			// Si token invalide alors message d'erreur
+			request.setAttribute("resultat", false);
+			request.setAttribute("message", "Token erroné");
+			
+			this.getServletContext().getRequestDispatcher("/WEB-INF/JSON/ConnexionPlayer.jsp").forward( request, response );
 		}
 	}
 
