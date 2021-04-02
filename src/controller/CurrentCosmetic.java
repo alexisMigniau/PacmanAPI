@@ -31,12 +31,13 @@ public class CurrentCosmetic extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		String loginplayer = request.getParameter("login");
-		//currentCosmetic?login=X
-		request.setAttribute("getColorCosmeticEquiped", cosmeticDao.getColorCosmeticEquiped(loginplayer));
-		this.getServletContext().getRequestDispatcher("/WEB-INF/JSON/CurrentCosmetic.jsp").forward( request, response );
-
+		String token = request.getParameter("token");
+		if(token.equals("8RCrv0rBNjpPPtTXvOTV")){
+			String loginplayer = request.getParameter("login");
+			//currentCosmetic?token=X&login=X
+			request.setAttribute("getColorCosmeticEquiped", cosmeticDao.getColorCosmeticEquiped(loginplayer));
+			this.getServletContext().getRequestDispatcher("/WEB-INF/JSON/CurrentCosmetic.jsp").forward( request, response );
+		}
 	}
 
 	/**
