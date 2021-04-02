@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mer. 31 mars 2021 à 19:48
+-- Généré le : ven. 02 avr. 2021 à 12:18
 -- Version du serveur :  10.3.27-MariaDB-0+deb10u1
 -- Version de PHP : 7.3.27-1~deb10u1
 
@@ -32,17 +32,18 @@ USE `pacman`;
 CREATE TABLE `cosmetic` (
   `id_cosmetic` int(11) NOT NULL,
   `name` varchar(20) NOT NULL,
-  `price` int(11) NOT NULL
+  `price` int(11) NOT NULL,
+  `color` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `cosmetic`
 --
 
-INSERT INTO `cosmetic` (`id_cosmetic`, `name`, `price`) VALUES
-(1, 'itemA', 50),
-(2, 'itemB', 100),
-(3, 'itemC', 150);
+INSERT INTO `cosmetic` (`id_cosmetic`, `name`, `price`, `color`) VALUES
+(1, 'itemA', 50, 'blue'),
+(2, 'itemB', 100, 'pink'),
+(3, 'itemC', 150, 'magenta');
 
 -- --------------------------------------------------------
 
@@ -102,7 +103,8 @@ INSERT INTO `player` (`id_player`, `pseudo`, `login`, `password`, `nationality`,
 (3, 'Wartek', 'wartek', 'wartek123', 'CH', '2021-03-31 08:12:44', 789),
 (4, 'TheFantasio974', 'fanta', 'fanta123', 'FR', '2021-03-31 08:12:44', 985),
 (5, 'Squeezie', 'squeezie', 'squeezie123', 'FR', '2021-03-31 08:12:44', 1256),
-(6, 'pseudo', 'loginlogin', '25d55ad283aa400af464c76d713c07ad', 'FR', '2021-03-31 08:33:22', 3740);
+(6, 'pseudo', 'loginlogin', '25d55ad283aa400af464c76d713c07ad', 'FR', '2021-03-31 08:33:22', 3590),
+(7, 'pseudo2', 'loginlogin2', '25d55ad283aa400af464c76d713c07ad', 'FR', '2021-03-31 17:51:09', 3250);
 
 -- --------------------------------------------------------
 
@@ -122,8 +124,12 @@ CREATE TABLE `player_cosmetic` (
 --
 
 INSERT INTO `player_cosmetic` (`id_possession_cosmetic`, `id_cosmetic`, `id_player`, `is_used`) VALUES
-(1, 1, 6, 1),
-(2, 2, 6, 0);
+(1, 1, 6, 0),
+(2, 2, 6, 0),
+(3, 3, 6, 1),
+(4, 1, 7, 0),
+(5, 2, 7, 0),
+(6, 3, 7, 1);
 
 --
 -- Index pour les tables déchargées
@@ -177,13 +183,13 @@ ALTER TABLE `game`
 -- AUTO_INCREMENT pour la table `player`
 --
 ALTER TABLE `player`
-  MODIFY `id_player` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_player` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT pour la table `player_cosmetic`
 --
 ALTER TABLE `player_cosmetic`
-  MODIFY `id_possession_cosmetic` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_possession_cosmetic` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Contraintes pour les tables déchargées
