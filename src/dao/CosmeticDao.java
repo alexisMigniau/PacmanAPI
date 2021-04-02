@@ -27,6 +27,9 @@ public interface CosmeticDao {
 	// Retourne l'id_cosmetic du cosmetic equipe
 	int getCosmeticEquiped(Long id_player);
 
+	// Retourne la couleur du cosmetic equipe
+	String getColorCosmeticEquiped(String login);
+
 	// Equiper le joueur avec un cosmetic
 	void equipCosmetic(List<Object> requestResult);
 

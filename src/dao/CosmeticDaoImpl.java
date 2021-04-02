@@ -193,6 +193,32 @@ public class CosmeticDaoImpl implements CosmeticDao {
 		return id_cosmetic;
 	}
 
+	private static final String SQL_SELECT_COLOR_USED_COSMETIC = "SELECT color FROM player_cosmetic pc INNER JOIN cosmetic c ON pc.id_cosmetic = c.id_cosmetic INNER JOIN player p ON pc.id_player = p.id_player WHERE pc.is_used = 1 and p.login = ? ";
+
+	@Override
+	public String getColorCosmeticEquiped(String login) throws DAOException {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Cosmetic cosmetic = null;
+		String color = "";
+		try {
+			// Ouverture de la connexion
+			connexion = factory.getConnection();
+			preparedStatement = initRequest(connexion, SQL_SELECT_COLOR_USED_COSMETIC, false, login);
+			resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+				color = resultSet.getString("color");
+			}
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return color;
+	}
+
 	private static final String SQL_SELECT_ALL_POSSESSED = "SELECT DISTINCT pc.id_cosmetic, name, price FROM cosmetic INNER JOIN player_cosmetic pc ON cosmetic.id_cosmetic = pc.id_cosmetic WHERE id_player = ?	";
 
 	@Override
