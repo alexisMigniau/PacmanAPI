@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -56,19 +55,24 @@ public class Games extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String token = request.getParameter("token");
 		
-		String login = request.getParameter("login");
-		int score = Integer.parseInt(request.getParameter("score"));
-		int rounds = Integer.parseInt(request.getParameter("rounds"));
-		
-		boolean added;
-		try {
-			gameDao.addGame(login, score, rounds);
-			added = true;
-		} catch(DAOException e) {
-			added = false;
+		if(token != null && token.equals("8RCrv0rBNjpPPtTXvOTV"))
+		{
+			String login = request.getParameter("login");
+			int score = Integer.parseInt(request.getParameter("score"));
+			int rounds = Integer.parseInt(request.getParameter("rounds"));
+			
+			boolean added;
+			try {
+				gameDao.addGame(login, score, rounds);
+				added = true;
+			} catch(DAOException e) {
+				added = false;
+			}
+			request.setAttribute("added", added);
+		}else {
+			request.setAttribute("added", false);
 		}
 		
-		request.setAttribute("added", added);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/JSON/Game.jsp").forward( request, response );
 	}
 
