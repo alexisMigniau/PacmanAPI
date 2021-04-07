@@ -31,7 +31,7 @@
 				    				<span>${ rank.nationality }</span>
 				    			</td>
 				    			<td>
-				    				<button type="button">Accéder au profil de ${ rank.pseudo }</button>
+				    				<button type="button" class="btnPlayer" id=${ rank.playerId }>Accéder au profil de ${ rank.pseudo }</button>
 				    			</td>
 				    		</tr>
 				    	</c:forEach>
@@ -42,6 +42,15 @@
 		</div>
     </jsp:body>
 </t:base>
+
+<script>
+	const buttonList = document.getElementsByClassName("btnPlayer");
+	for (let i=0; i<buttonList.length; i++){
+		buttonList[i].onclick = () => {
+			location.href = this.location.href.substring(this.location.href.lastIndexOf('/'), 0, 1) + "/profile?idPlayer=" + buttonList[i].id;
+		}
+	}
+</script>
 
 <style>
 	h1{

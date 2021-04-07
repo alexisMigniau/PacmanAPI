@@ -75,7 +75,11 @@ INSERT INTO `game` (`id_game`, `id_player`, `score`, `time`, `date`) VALUES
 (9, 4, 1910, 155, '2021-03-31 08:12:44'),
 (10, 5, 1885, 165, '2021-03-31 08:12:44'),
 (11, 5, 1733, 177, '2021-03-31 08:12:44'),
-(12, 5, 2073, 148, '2021-03-31 08:12:44');
+(12, 5, 2073, 148, '2021-03-31 08:12:44'),
+(13, 6, 1910, 155, '2021-03-31 08:12:44'),
+(14, 6, 1885, 165, '2021-03-31 08:12:44'),
+(15, 6, 1733, 177, '2021-03-31 08:12:44'),
+(16, 6, 2073, 148, '2021-03-31 08:12:44');
 
 -- --------------------------------------------------------
 
@@ -177,7 +181,7 @@ ALTER TABLE `cosmetic`
 -- AUTO_INCREMENT pour la table `game`
 --
 ALTER TABLE `game`
-  MODIFY `id_game` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_game` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT pour la table `player`

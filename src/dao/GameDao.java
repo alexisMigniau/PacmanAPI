@@ -12,4 +12,6 @@ public interface GameDao {
 
 	// Récupérer les parties d'un joueur précis
 	List<Game> findByPlayerId(Long idPlayer) throws DAOException;
+	
+	void addGame(String login, int score, int time) throws DAOException;
 }

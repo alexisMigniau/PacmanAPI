@@ -1,5 +1,6 @@
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %> <%@taglib
-uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %> 
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <t:base>
 	<jsp:body>
@@ -18,7 +19,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 								<tr>
 									<th>N°</th>
 									<th>Score</th>
-									<th>Durée (s)</th>
+									<th>Nombre de tours</th>
 									<th>Date</th>
 								</tr>
 							</thead>
@@ -35,7 +36,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 											<span>${ game.time }</span>
 										</td>
 										<td>
-											<span>${ game.date }</span>
+											<span><fmt:formatDate type = "both" dateStyle = "short" timeStyle = "short" value = "${ game.date }" /></span>
 										</td>
 									</tr>
 								</c:forEach>
