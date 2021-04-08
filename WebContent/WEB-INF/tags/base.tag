@@ -20,7 +20,7 @@
 			<div class="container justify-content-around">
 				<div class="row">
 					<div class="col">
-						<a class="btn btn-outline-warning" href="./exemple.jar" role="button">Télécharger</a>
+						<a class="btn btn-outline-warning" href="download" role="button">Télécharger</a>
 					</div>
 					<div class="col">
 						<a class="btn btn-outline-warning" href="ranking" role="button">Classement</a>
